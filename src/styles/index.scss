@@ -1,0 +1,159 @@
+@import './transition.scss';
+@import './sidebar.scss';
+
+body {
+  margin: 0;
+  background-color: $--background-color-base;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+div:focus {
+  outline: none;
+}
+
+a:focus,
+a:active {
+  outline: none;
+}
+
+a,
+a:focus,
+a:hover {
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+}
+
+//main-container全局样式
+.app-main {
+  min-height: 100%;
+  margin: 20px;
+  background-color: white;
+}
+
+.app-container {
+  padding: 20px;
+}
+
+/**
+ * 表格头样式
+ */
+.el-table thead th {
+  background: #F4F4F5;
+  color: #909399;
+}
+
+/**
+ * 弹窗样式
+ */
+.el-dialog__wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/**
+ * 弹窗样式
+ */
+.el-dialog {
+  max-height: 90%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  margin: 0 !important;
+  border-radius: 8px;
+
+  &__header {
+    position: relative;
+    border-bottom: 1px solid $--border-color-base;
+    padding: 20px 26px 20px 20px;
+  }
+
+  &__title {
+    font-size: 20px;
+    font-weight: bold;
+    color: $--color-text-primary;
+  }
+
+  &__headerbtn,
+  &__openWindowBtn {
+    font-size: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 26px;
+
+    .el-dialog__close,
+    .el-dialog__openWindow {
+      color: $--color-text-primary;
+    }
+  }
+
+  &__openWindowBtn {
+    position: absolute;
+    padding: 0;
+    background: 0 0;
+    border: none;
+    outline: 0;
+    cursor: pointer;
+    right: 70px;
+
+    &:hover {
+      .el-dialog__openWindow {
+        color: $--color-primary;
+      }
+    }
+
+    .el-dialog__openWindow {
+      font-size: 24px;
+    }
+  }
+
+  &__body {
+    padding: 30px 26px 30px 20px;
+    overflow: auto;
+    box-sizing: border-box;
+    height: 100%;
+  }
+
+  &__footer {
+    border-top: 1px solid $--border-color-base;
+    padding: 20px 30px;
+
+    .el-button + .el-button {
+      margin-left: 8px;
+    }
+
+    .el-button--medium {
+      padding: 10px 36px;
+    }
+  }
+}
+
+/**
+按钮分隔栏样式
+ */
+.divider-handle {
+  .el-button--text:not(:last-child):after {
+    content: "";
+    display: inline-block;
+    background-color: #DCDFE6;
+    width: 1px;
+    height: 1em;
+    margin-left: 8px;
+    vertical-align: middle;
+    position: relative;
+  }
+}

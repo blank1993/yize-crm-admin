@@ -1,0 +1,72 @@
+{
+  "name": "yize-crm-admin",
+  "version": "1.0.0",
+  "description": "",
+  "author": "blank",
+  "license": "ISC",
+  "main": "main.js",
+  "build": {
+    "appId": "com.blank.erp",
+    "copyright": "Copyright © 2020 blank.com",
+    "electronDownload": {
+      "mirror": "https://npm.taobao.org/mirrors/electron/"
+    },
+    "directories": {
+      "output": "build"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "perMachine": false,
+      "runAfterFinish": true
+    },
+    "publish": [
+      {
+        "provider": "generic",
+        "url": "#"
+      }
+    ]
+  },
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "test:unit": "vue-cli-service test:unit",
+    "lint": "vue-cli-service lint",
+    "start": "electron .",
+    "pack": "electron-builder --win --x64 --dir",
+    "dist": "electron-builder --win --x64"
+  },
+  "dependencies": {
+    "axios": "0.19.0",
+    "core-js": "^3.6.5",
+    "crypto-js": "^4.0.0",
+    "element-ui": "2.13.2",
+    "js-cookie": "2.2.0",
+    "json2csv": "^3.11.5",
+    "nprogress": "0.2.0",
+    "screenfull": "4.0.0",
+    "vue": "^2.6.12",
+    "vue-data-tables": "3.4.4",
+    "vue-router": "^3.4.3",
+    "vuex": "^3.5.1"
+  },
+  "devDependencies": {
+    "electron-updater": "^4.3.4",
+    "electron": "^9.2.0",
+    "electron-builder": "^22.8.0",
+    "@vue/cli-plugin-babel": "^4.5.4",
+    "@vue/cli-plugin-eslint": "^4.5.4",
+    "@vue/cli-plugin-router": "^4.5.4",
+    "@vue/cli-plugin-unit-jest": "^4.5.4",
+    "@vue/cli-plugin-vuex": "^4.5.4",
+    "@vue/cli-service": "^4.5.4",
+    "@vue/eslint-config-airbnb": "^4.0.0",
+    "@vue/test-utils": "1.0.0-beta.29",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "sass": "^1.26.10",
+    "sass-loader": "^8.0.2",
+    "vue-template-compiler": "^2.6.12"
+  }
+}
