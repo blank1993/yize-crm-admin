@@ -7,7 +7,7 @@ module.exports = {
   rules: {
     'linebreak-style': [0, 'error', 'windows'],
     'global-require': 0,
-    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-console': process.env.NODE_ENV === 'production' ? 'off' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'import/extensions': [
       'error',

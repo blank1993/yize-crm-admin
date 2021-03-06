@@ -13,7 +13,7 @@ const service = axios.create({
 
 // request拦截器
 service.interceptors.request.use((config) => {
-  if (store.getters.token) {
+  if (getToken()) {
     // eslint-disable-next-line no-param-reassign
     config.headers.Authorization = `Bearer ${getToken()}`; // 让每个请求携带自定义token 请根据实际情况自行修改
   }
@@ -40,7 +40,7 @@ service.interceptors.response.use(
         });
       } else if (res.code === 10010) {
         Router.push({ path: '/license', query: { mac: res.data, msg: res.msg } });
-      } else {
+      } else if (res.code !== 1003) {
         Notification.error({
           title: '错误',
           message: res.msg,

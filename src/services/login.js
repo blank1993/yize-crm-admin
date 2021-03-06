@@ -1,11 +1,8 @@
 // eslint-disable-next-line import/no-cycle
 import request from '@/utils/request';
 
-const login = (username, password, key, code) => {
+const login = (code) => {
   const params = new URLSearchParams();
-  params.append('username', username);
-  params.append('password', password);
-  params.append('key', key);
   params.append('code', code);
   return request({
     url: '/admin/user/login',

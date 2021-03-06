@@ -37,26 +37,6 @@
                 :src="require('@/assets/default_icon.png')"
               >
               <div class="user-name">{{ name }}</div>
-              <el-dropdown-menu slot="dropdown" class="user-dropdown">
-                <router-link class="inlineBlock" to="/index">
-                  <el-dropdown-item>
-                    首页
-                  </el-dropdown-item>
-                </router-link>
-                <router-link class="inlineBlock" to="/reset">
-                  <el-dropdown-item>
-                    修改密码
-                  </el-dropdown-item>
-                </router-link>
-                <router-link class="inlineBlock" to="/about">
-                  <el-dropdown-item>
-                    关于
-                  </el-dropdown-item>
-                </router-link>
-                <el-dropdown-item divided>
-                  <span style="display:block;" @click="logout">注销</span>
-                </el-dropdown-item>
-              </el-dropdown-menu>
             </div>
           </div>
         </el-dropdown>

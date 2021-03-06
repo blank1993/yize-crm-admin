@@ -4,8 +4,7 @@ import locale from 'element-ui/lib/locale/lang/zh-CN';
 import 'element-ui/lib/theme-chalk/index.css';
 import { DataTables, DataTablesServer } from 'vue-data-tables';
 import { hasPermission } from '@/utils/permission';
-import { initLicense } from '@/utils';
-import { autoUpdate, initMenu } from '@/utils/electron';
+import { initMenu } from '@/utils/electron';
 import App from './App.vue';
 import router from './router';
 import store from './store';
@@ -41,5 +40,3 @@ new Vue({
   render: (h) => h(App),
 }).$mount('#app');
 initMenu();
-autoUpdate();
-initLicense();

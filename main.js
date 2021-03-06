@@ -2,12 +2,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 const electron = require('electron');
 
-const { app, ipcMain, BrowserWindow } = electron;
-
-const path = require('path');
-const url = require('url');
-
-const feedUrl = 'http://127.0.0.1:80/update';
+const { app, BrowserWindow } = electron;
 
 const template = [
   {
@@ -31,6 +26,13 @@ const template = [
       { role: 'quit', label: '退出' },
     ],
   },
+  {
+    label: '机器标识',
+    click() {
+      const { machineIdSync } = require('node-machine-id');
+      electron.dialog.showMessageBox({ type: 'info', title: '标识', message: machineIdSync({ original: true }) });
+    },
+  },
 ];
 
 // 自定义顶部菜单
@@ -39,7 +41,6 @@ const menu = Menu.buildFromTemplate(template);
 Menu.setApplicationMenu(menu);
 
 let mainWindow;
-let webContents;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -50,21 +51,16 @@ function createWindow() {
     },
   });
   // eslint-disable-next-line prefer-destructuring
-  webContents = mainWindow.webContents;
   mainWindow.maximize();
   mainWindow.show();
 
   // 在窗口内要展示的内容为 ./dist/index.html，即打包生成的index.html
-  mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, './dist', 'index.html'),
-    protocol: 'file:',
-    slashes: true,
-  }));
+  mainWindow.loadURL('http://127.0.0.1:8090');
 
   // 自动打开调试台
-  // mainWindow.webContents.openDevTools({
-  //   detach: true,
-  // });
+  mainWindow.webContents.openDevTools({
+    detach: true,
+  });
 
   mainWindow.on('closed', () => {
     // 回收BrowserWindow对象

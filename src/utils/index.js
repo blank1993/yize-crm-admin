@@ -1,6 +1,5 @@
 import json2csv from 'json2csv';
 import store from '@/store';
-import LicenseService from '@/services/license';
 
 export function exportCsv(data, fields, fieldNames, fileName) {
   const result = json2csv({
@@ -32,13 +31,4 @@ export function isExternal(path) {
 
 export function has(permission) {
   return store.getters.rolesMap[permission] === true;
-}
-
-export async function initLicense() {
-  try {
-    const { data } = await LicenseService.getInfo();
-    store.commit('SET_LICENSE', data.data);
-  } finally {
-    window.document.title = store.state.app.license.sysName;
-  }
 }

@@ -13,11 +13,6 @@ export const constantRouterMap = [
     hidden: true,
   },
   {
-    path: '/license',
-    component: () => import('@/views/license'),
-    hidden: true,
-  },
-  {
     path: '',
     component: Layout,
     redirect: 'index',
@@ -28,39 +23,6 @@ export const constantRouterMap = [
       meta: { title: '首页', icon: 'icon-dashboard', affix: true },
     }],
   },
-  {
-    path: '',
-    hidden: true,
-    component: Layout,
-    redirect: 'noredirect',
-    children: [{
-      hidden: true,
-      path: '/reset',
-      component: () => import('@/views/system/user/resetPassword'),
-      name: 'ResetPassword',
-      meta: {
-        title: '修改密码',
-        icon: 'password',
-        // or you can only set roles in sub nav
-      },
-    }],
-  },
-  {
-    path: '',
-    hidden: true,
-    component: Layout,
-    redirect: 'noredirect',
-    children: [{
-      hidden: true,
-      path: '/about',
-      component: () => import('@/views/about'),
-      name: 'about',
-      meta: {
-        title: '关于',
-      },
-    }],
-  },
-
 ];
 export default new Router({
   // mode: 'history', //后端支持可开
@@ -78,67 +40,17 @@ export const asyncRouterMap = [
       title: '系统设置',
       icon: 'icon-setting-fill',
     },
-    children: [{
-      path: 'user',
-      component: () => import('@/views/system/user/list'),
-      name: 'UserList',
-      meta: {
-        title: '用户列表',
-        icon: 'icon-team',
-        roles: ['user:list'],
-        cache: true,
+    children: [
+      {
+        path: 'log',
+        component: () => import('@/views/system/userLog/list'),
+        name: 'Log',
+        meta: {
+          title: '日志',
+          icon: 'icon-unorderedlist',
+          roles: ['userLog:list'],
+        },
       },
-    },
-    {
-      path: 'role',
-      component: () => import('@/views/system/role/list'),
-      name: 'RoleList',
-      meta: {
-        title: '角色管理',
-        icon: 'icon-skin',
-        roles: ['role:list'],
-      },
-    },
-    {
-      path: 'permission',
-      component: () => import('@/views/system/permission/list'),
-      name: 'PermissionList',
-      meta: {
-        title: '权限配置',
-        icon: 'icon-lock-fill',
-        roles: ['permission:list'],
-      },
-    },
-    {
-      path: 'upload',
-      component: () => import('@/views/system/upload'),
-      name: 'Upload',
-      meta: {
-        title: '文件上传',
-        icon: 'icon-upload',
-        roles: ['upload'],
-      },
-    },
-    {
-      path: 'dictionary',
-      component: () => import('@/views/system/dictionary'),
-      name: 'Dictionary',
-      meta: {
-        title: '数据字典',
-        icon: 'icon-database-fill',
-        roles: ['dictionary:list'],
-      },
-    },
-    {
-      path: 'log',
-      component: () => import('@/views/system/userLog/list'),
-      name: 'Log',
-      meta: {
-        title: '日志',
-        icon: 'icon-unorderedlist',
-        roles: ['userLog:list'],
-      },
-    },
     ],
   },
   { path: '*', redirect: 'index', hidden: true },
