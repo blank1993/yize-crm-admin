@@ -53,5 +53,34 @@ export const asyncRouterMap = [
       },
     ],
   },
+  {
+    path: '/project',
+    component: Layout,
+    redirect: 'noredirect',
+    name: '项目',
+    alwaysShow: true,
+    meta: {
+      title: '项目',
+      icon: 'icon-project',
+    },
+    children: [
+      {
+        path: 'list',
+        component: () => import('@/views/project/list'),
+        name: 'ProjectList',
+        meta: {
+          title: '项目进度',
+        },
+      },
+      {
+        path: 'statistic',
+        component: () => import('@/views/statistic/list'),
+        name: 'ProjectStatistic',
+        meta: {
+          title: '数据汇总',
+        },
+      },
+    ],
+  },
   { path: '*', redirect: 'index', hidden: true },
 ];

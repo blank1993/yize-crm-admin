@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 const app = {
   state: {
     sidebar: {
-      opened: !+Cookies.get('sidebarStatus'),
+      opened: Cookies.get('sidebarStatus'),
     },
     zoomSize: Cookies.get('zoomSize') === undefined ? 1 : Cookies.get('zoomSize'),
     license: { sysName: '后台管理系统' },

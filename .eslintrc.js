@@ -38,7 +38,8 @@ module.exports = {
     'vue/name-property-casing': ['error', 'PascalCase'],
     'vue/no-v-html': 'off',
     "no-restricted-syntax": 'off',
-  },
+    "max-len" : ["error", {code : 300}]
+},
   parserOptions: {
     parser: 'babel-eslint',
   },

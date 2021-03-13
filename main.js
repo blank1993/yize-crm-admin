@@ -56,6 +56,7 @@ function createWindow() {
 
   // 在窗口内要展示的内容为 ./dist/index.html，即打包生成的index.html
   mainWindow.loadURL('http://127.0.0.1:8090');
+  // mainWindow.loadURL('http://blank1993.vip:8888/yize-crm');
 
   // 自动打开调试台
   mainWindow.webContents.openDevTools({
