@@ -30,10 +30,17 @@ const get = (id) => request({
   method: 'get',
 });
 
+const listByCode = (projectCode) => request({
+  url: '/admin/project/listByCode',
+  method: 'get',
+  params: { projectCode },
+});
+
 export default {
   add,
   list,
   update,
   get,
   remove,
+  listByCode,
 };

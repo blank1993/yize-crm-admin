@@ -27,19 +27,17 @@
           </el-dropdown-menu>
         </el-dropdown>
 
-        <el-dropdown placement="bottom">
-          <div class="avatar-container right-menu-item">
-            <div class="avatar-wrapper">
-              <img
-                class="user-avatar"
-                alt=""
-                :onerror="setErrorImg"
-                :src="require('@/assets/default_icon.png')"
-              >
-              <div class="user-name">{{ name }}</div>
-            </div>
+        <div class="avatar-container right-menu-item">
+          <div class="avatar-wrapper">
+            <img
+              class="user-avatar"
+              alt=""
+              :onerror="setErrorImg"
+              :src="require('@/assets/default_icon.png')"
+            >
+            <div class="user-name">{{ name }}</div>
           </div>
-        </el-dropdown>
+        </div>
       </div>
     </el-menu>
   </div>
