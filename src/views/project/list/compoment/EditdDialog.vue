@@ -1,5 +1,5 @@
 <template>
-  <el-dialog class="project-dialog" :visible.sync="form.visible" :title="form.title" width="1100px">
+  <el-dialog v-if="form.visible" class="project-dialog" :visible.sync="form.visible" :title="form.title" width="1100px">
     <el-form v-loading="form.loading" size="medium" label-width="120px">
       <el-row :gutter="2">
         <el-col :span="8">
@@ -284,7 +284,9 @@
 
         <el-col :span="8">
           <el-form-item label="审核意见单">
-            <el-button type="primary" size="small" @click="handleUpload">上传文件</el-button>
+            <el-button v-if="form.data.examineOpinion" size="small" type="text" @click="openInstruction(form.data.examineOpinion)">查看</el-button>
+            <el-button v-if="form.data.examineOpinion" type="danger" size="small" @click="form.data.examineOpinion=null">删除</el-button>
+            <el-button v-else type="primary" size="small" @click="handleUpload">上传文件</el-button>
           </el-form-item>
         </el-col>
 
@@ -316,6 +318,12 @@
         <el-col :span="8">
           <el-form-item label="结构单价A3(元)">
             <el-input v-model="form.data.structurePrice" />
+          </el-form-item>
+        </el-col>
+
+        <el-col :span="8">
+          <el-form-item label="合同信息">
+            <el-button type="primary" size="small" @click="viewContract">查看</el-button>
           </el-form-item>
         </el-col>
 
@@ -401,12 +409,24 @@ export default {
     },
   },
   methods: {
+    openInstruction(url) {
+      window.location.href = process.env.VUE_APP_BASE_URL + url;
+    },
+    viewContract() {
+      this.$notify.warning({ title: '警告', message: '还未有合同模块', duration: 2500 });
+    },
     async projectChange() {
       if (!this.form.data.id) {
         const { data } = await ProjectService.listByCode(this.form.data.projectcCode);
         if (data) {
           this.form.data.pumpsTotal = data.pumpsTotal;
           this.form.data.contract = data.contract;
+          this.form.data.projectName = data.projectName;
+          this.form.data.contact = data.contact;
+          this.form.data.geishuiDesign = data.geishuiDesign;
+          this.form.data.paishuiDesign = data.paishuiDesign;
+          this.form.data.electricDesign = data.electricDesign;
+          this.form.data.waterscapeDesign = data.waterscapeDesign;
         }
       }
     },

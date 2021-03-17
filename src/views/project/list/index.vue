@@ -35,11 +35,15 @@
       </el-col>
     </el-row>
 
+    <div style="margin-bottom: 5px"><span style="font-weight: bold">项目批注：</span>
+      <span v-if="nowSelect!=null">{{ nowSelect.comments }}</span>
+    </div>
+
     <el-table
       :data="tableData.list"
       :border="true"
       :cell-style="cellStyle"
-      :height="'calc(100vh - 240px)'"
+      :height="'calc(100vh - 270px)'"
       highlight-current-row
       :loading="tableData.loading"
       @current-change="selectChange"
@@ -220,11 +224,11 @@
       />
       <el-table-column
         align="center"
-        label="指令单"
+        label="审核意见单"
         width="95"
       >
         <template slot-scope="{row}">
-          <el-button v-if="row.instruction" type="text" @click="openInstruction(row.instruction)">打开</el-button>
+          <el-button v-if="row.examineOpinion" type="text" @click="openInstruction(row.examineOpinion)">打开</el-button>
         </template>
       </el-table-column>
       <el-table-column
