@@ -1,7 +1,8 @@
 <template>
   <div class="app-container">
-    <el-row type="flex" justify="space-between" style="margin-bottom: 10px">
-      <el-col>
+    <el-row type="flex" style="margin-bottom: 10px">
+
+      <el-col :span="6">
         <el-button-group>
           <el-button type="primary" @click="handleAdd">新增项目</el-button>
           <el-button
@@ -19,17 +20,27 @@
         </el-button-group>
       </el-col>
 
-      <el-select v-model="dateRange" style="margin-right: 10px" placeholder="请选择">
-        <el-option
-          v-for="item in dateOption"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-        />
-      </el-select>
 
-      <el-col :span="8">
-        <el-input v-model="tableData.keyWord" placeholder="请输入项目名">
+      <el-col :span="18" style="text-align: right">
+        计划完成时间：
+        <el-date-picker
+          v-model="dateRange"
+          type="daterange"
+          start-placeholder="开始日期"
+          end-placeholder="结束日期"
+          :picker-options="pickerOptions"
+          value-format="yyyy-MM-dd"
+        />
+        项目类型:
+        <el-select v-model="tableData.params.projectType" clearable placeholder="" style="width: 70px;margin-right: 8px">
+          <el-option
+            v-for="item in projectTypeOption"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+        <el-input v-model="tableData.params.keyWord" style="width: 200px" placeholder="请输入搜索内容">
           <el-button slot="append" icon="el-icon-search" @click="fetchData" />
         </el-input>
       </el-col>
@@ -49,80 +60,105 @@
       @current-change="selectChange"
     >
       <el-table-column
+        :resizable="false"
         align="center"
-        label=" 项目类型 "
-        prop="projectTypeText"
+        label="项目类型"
+        prop="projectType"
         width="80"
       />
       <el-table-column
+        :resizable="false"
         align="center"
-        label=" 项目编号 "
+        label="项目编号"
         prop="projectcCode"
         width="140"
       />
       <el-table-column
+        :resizable="false"
         align="center"
-        label=" 项目名称 "
+        label="项目名称"
         prop="projectName"
         width="220"
       />
       <el-table-column
+        :resizable="false"
         align="center"
-        label=" 联系人 "
+        label="联系人"
         prop="contact"
         width="95"
       />
       <el-table-column
+        :resizable="false"
         align="center"
-        label=" 接收日期 "
+        label="接收日期"
         prop="recTime"
         width="95"
       />
       <el-table-column
+        :resizable="false"
         align="center"
-        label=" 提资 "
+        label="提资"
         prop="raiseCapital"
-        width="95"
+        width="50"
       />
       <el-table-column
+        :resizable="false"
         align="center"
-        label=" 负责人 "
+        label="负责人"
         prop="director"
         width="95"
       />
       <el-table-column
+        :resizable="false"
         align="center"
-        label=" 设计深度 "
+        label="设计深度"
         prop="designDepth"
-        width="95"
+        width="80"
       />
       <el-table-column
+        :resizable="false"
         align="center"
-        label=" 给水估时 "
+        label="计划完成时间"
+        prop="designDepth"
+        width="130"
+      >
+        <template slot-scope="{row}">
+          {{ row.planTime }}{{ row.planTimeHalf }}
+        </template>
+
+      </el-table-column>
+      <el-table-column
+        :resizable="false"
+        align="center"
+        label="给水估时"
         prop="geishuiTime"
-        width="95"
+        width="80"
       />
       <el-table-column
+        :resizable="false"
         align="center"
         label=" 排水估时 "
         prop="paishuiTime"
-        width="95"
+        width="80"
       />
       <el-table-column
+        :resizable="false"
         align="center"
-        label=" 电气估时 "
+        label="电气估时"
         prop="electricTime"
-        width="95"
+        width="80"
       />
       <el-table-column
+        :resizable="false"
         align="center"
-        label=" 水景估时 "
+        label="水景估时"
         prop="waterscapeTime"
-        width="95"
+        width="80"
       />
       <el-table-column
+        :resizable="false"
         align="center"
-        label=" 给水设计 "
+        label="给水设计"
         prop="geishuiDesign"
         width="95"
       >
@@ -133,96 +169,112 @@
         </template>
       </el-table-column>
       <el-table-column
+        :resizable="false"
         align="center"
-        label=" 给水实际用时 "
+        label="实际用时"
         prop="geishuiActulTime"
-        width="110"
+        width="80"
       />
       <el-table-column
+        :resizable="false"
         align="center"
-        label=" 给水评分 "
+        label="给水评分"
         prop="geishuiPoint"
-        width="95"
+        width="80"
       />
       <el-table-column
+        :resizable="false"
         align="center"
-        label=" 排水设计 "
+        label="排水设计"
         prop="paishuiDesign"
         width="95"
       />
       <el-table-column
+        :resizable="false"
         align="center"
-        label=" 排水实际用时 "
+        label="实际用时"
         prop="paishuiActulTime"
-        width="110"
+        width="80"
       />
       <el-table-column
+        :resizable="false"
         align="center"
-        label=" 排水评分 "
+        label="排水评分"
         prop="paishuiPoint"
-        width="95"
+        width="80"
       />
       <el-table-column
+        :resizable="false"
         align="center"
-        label=" 电气设计 "
+        label="电气设计"
         prop="electricDesign"
         width="95"
       />
       <el-table-column
+        :resizable="false"
         align="center"
-        label=" 电气实际用时 "
+        label="实际用时"
         prop="electricActulTime"
-        width="110"
+        width="80"
       />
       <el-table-column
+        :resizable="false"
         align="center"
-        label=" 电气评分 "
+        label="电气评分"
         prop="electricPoint"
-        width="95"
+        width="80"
       />
       <el-table-column
+        :resizable="false"
         align="center"
-        label=" 水景设计 "
+        label="水景设计"
         prop="waterscapeDesign"
         width="95"
       />
       <el-table-column
+        :resizable="false"
         align="center"
-        label=" 水景实际用时 "
+        label="实际用时"
         prop="waterscapeActulTime"
-        width="110"
+        width="80"
       />
       <el-table-column
+        :resizable="false"
         align="center"
-        label=" 水景评分 "
+        label="水景评分"
         prop="waterscapePoint"
-        width="95"
+        width="80"
       />
       <el-table-column
+        :resizable="false"
         align="center"
-        label=" 本次水泵数量 "
+        label="本次泵数"
         prop="pumps"
-        width="110"
+        width="80"
       />
       <el-table-column
+        :resizable="false"
         align="center"
-        label=" 项目类别 "
-        prop="projectCategoryText"
+        label="项目类别"
+        prop="projectCategory"
         width="95"
       />
       <el-table-column
+        :resizable="false"
         align="center"
-        label=" 难度系数 "
+        label="难度系数"
         prop="degreeDifficulty"
         width="95"
       />
       <el-table-column
+        :resizable="false"
         align="center"
-        label=" 水泵总数 "
+        label="水泵总数"
         prop="pumpsTotal"
         width="95"
       />
       <el-table-column
+        :resizable="false"
         align="center"
         label="审核意见单"
         width="95"
@@ -232,6 +284,7 @@
         </template>
       </el-table-column>
       <el-table-column
+        :resizable="false"
         align="center"
         label="合同编号"
         prop="contract"
@@ -254,23 +307,70 @@ export default {
   },
   data() {
     return {
-      dateRange: '1',
+      pickerOptions: {
+        shortcuts: [{
+          text: '当前周',
+          onClick: (picker) => {
+            const end = this.$dayjs().endOf('week').toDate();
+            const start = this.$dayjs().startOf('week').toDate();
+            picker.$emit('pick', [start, end]);
+          },
+        }, {
+          text: '当前月',
+          onClick: (picker) => {
+            const end = this.$dayjs().endOf('month').toDate();
+            const start = this.$dayjs().startOf('month').toDate();
+            picker.$emit('pick', [start, end]);
+          },
+        }, {
+          text: '当前年',
+          onClick: (picker) => {
+            const end = this.$dayjs().endOf('year').toDate();
+            const start = this.$dayjs().startOf('year').toDate();
+            picker.$emit('pick', [start, end]);
+          },
+        }, {
+          text: '上一周',
+          onClick: (picker) => {
+            const end = this.$dayjs().add(-1, 'w').endOf('week').toDate();
+            const start = this.$dayjs().add(-1, 'w').startOf('week').toDate();
+            picker.$emit('pick', [start, end]);
+          },
+        }, {
+          text: '上一月',
+          onClick: (picker) => {
+            const end = this.$dayjs().add(-1, 'M').endOf('month').toDate();
+            const start = this.$dayjs().add(-1, 'M').startOf('month').toDate();
+            picker.$emit('pick', [start, end]);
+          },
+        }, {
+          text: '上一年',
+          onClick: (picker) => {
+            const end = this.$dayjs().add(-1, 'y').endOf('year').toDate();
+            const start = this.$dayjs().add(-1, 'y').startOf('year').toDate();
+            picker.$emit('pick', [start, end]);
+          },
+        }],
+      },
       projectForm: {
         data: {},
         visible: false,
       },
+      dateRange: [this.$dayjs().startOf('week').toDate(),
+        this.$dayjs().endOf('week').toDate()],
       // 表格数据
       tableData: {
+        params: {
+          keyWord: null,
+          projectType: null,
+        },
         list: [],
         loading: false,
       },
       nowSelect: null,
-      dateOption: [{ label: '当前周', value: '1' },
-        { label: '当前月', value: '2' },
-        { label: '当前年', value: '3' },
-        { label: '上一周', value: '4' },
-        { label: '上一月', value: '5' },
-        { label: '上一年', value: '6' }],
+      projectTypeOption: [{ label: '修', value: '修' },
+        { label: '新', value: '新' },
+        { label: '增', value: '增' }],
     };
   },
   mounted() {
@@ -345,6 +445,10 @@ export default {
         if (this.checkEmpty(this.tableData.list[row.rowIndex].waterscapeTime) === false
           && this.checkEmpty(this.tableData.list[row.rowIndex].waterscapePoint) === true) { return { background: color }; }
       }
+      if (row.column.property === 'pumps') {
+        if (this.checkEmpty(this.tableData.list[row.rowIndex].waterscapeDesign) === false
+          && this.checkEmpty(this.tableData.list[row.rowIndex].pumps) === true) { return { background: color }; }
+      }
       return '';
     },
     /**
@@ -352,10 +456,13 @@ export default {
      */
     async fetchData() {
       this.tableData.loading = true;
+      if (this.dateRange === null) this.dateRange = [];
       const { data } = await ProjectService
-        .list(
-          this.tableData.keyWord,
-        );
+        .list({
+          startDate: this.dateRange[0],
+          endDate: this.dateRange[1],
+          ...this.tableData.params,
+        });
       this.tableData.list = data;
     },
     async handleRemove() {

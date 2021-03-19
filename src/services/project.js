@@ -1,11 +1,9 @@
 import request from '@/utils/request';
 
-const list = (keyWord) => request({
+const list = (params) => request({
   url: '/admin/project',
   method: 'get',
-  params: {
-    keyWord,
-  },
+  params,
 });
 
 const add = (project) => request({

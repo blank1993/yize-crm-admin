@@ -55,12 +55,11 @@ const user = {
         LoginService.getInfo()
           .then((response) => {
             const { data } = response;
-            // commit('SET_ROLES', data.roles)
-            commit('SET_ROLES', data.permissions);
+            commit('SET_ROLES', [data.user.power]);
             commit('SET_ROLESMAP', data.permissions);
             commit('SET_NAME', data.user.username);
             commit('SET_AVATAR', data.user.username);
-            resolve(data.permissions);
+            resolve([data.user.power]);
           })
           .catch((error) => {
             reject(error);

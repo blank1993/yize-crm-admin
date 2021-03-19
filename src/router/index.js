@@ -48,7 +48,7 @@ export const asyncRouterMap = [
         meta: {
           title: '日志',
           icon: 'icon-unorderedlist',
-          roles: ['userLog:list'],
+          roles: ['0'],
         },
       },
     ],

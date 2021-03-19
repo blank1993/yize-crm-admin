@@ -32,6 +32,7 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 .app-wrapper {
+  min-width: 1240px;
   position: relative;
   height: 100%;
   width: 100%;
