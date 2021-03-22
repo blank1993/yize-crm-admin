@@ -157,6 +157,7 @@
                 size="small"
                 :step="0.1"
                 :min="0"
+                @change="timeChange('geishuiTime','geishuiDesign')"
               />
             </el-form-item>
           </el-col>
@@ -168,6 +169,7 @@
                 size="small"
                 :step="0.1"
                 :min="0"
+                @change="timeChange('paishuiTime','paishuiDesign')"
               />
             </el-form-item>
           </el-col>
@@ -179,6 +181,7 @@
                 size="small"
                 :step="0.1"
                 :min="0"
+                @change="timeChange('electricTime','electricDesign')"
               />
             </el-form-item>
           </el-col>
@@ -190,6 +193,7 @@
                 size="small"
                 :step="0.1"
                 :min="0"
+                @change="timeChange('waterscapeTime','waterscapeDesign')"
               />
             </el-form-item>
           </el-col>
@@ -623,6 +627,10 @@ export default {
             structure: '否',
             finish: '否',
             examine: '是',
+            waterscapeDesign: null,
+            electricDesign: null,
+            paishuiDesign: null,
+            geishuiDesign: null,
           };
         }
       }
@@ -661,6 +669,18 @@ export default {
           }
           this.form.data.projectCategory = data.projectCategory;
           this.form.data.structure = data.structure;
+        }
+      }
+    },
+    async timeChange(time, design) {
+      if (!this.form.data.id && this.form.data.projectcCode) {
+        const { data } = await ProjectService.listByCode(this.form.data.projectcCode);
+        if (data) {
+          if (this.form.data[time] && this.form.data[time] !== 0) {
+            if (!this.form.data[design]) {
+              this.form.data[design] = data[design];
+            }
+          }
         }
       }
     },

@@ -1,6 +1,10 @@
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 const electron = require('electron');
+const Datastore = require('nedb');
+const prompt = require('electron-prompt');
+
+const db = new Datastore({ filename: 'path/to/datafile', autoload: true });
 
 const { app, BrowserWindow } = electron;
 
@@ -33,6 +37,24 @@ const template = [
       electron.dialog.showMessageBox({ type: 'info', title: '标识', message: machineIdSync({ original: true }) });
     },
   },
+  {
+    label: '请求地址',
+    click() {
+      prompt({
+        title: '输入地址',
+        value: '',
+        label: '地址',
+        type: 'input',
+      })
+        .then((r) => {
+          if (r !== null) {
+            db.remove({}, { multi: true });
+            db.insert({ key: 'url', value: r });
+          }
+        })
+        .catch(console.error);
+    },
+  },
 ];
 
 // 自定义顶部菜单
@@ -55,17 +77,21 @@ function createWindow() {
   mainWindow.show();
 
   // 在窗口内要展示的内容为 ./dist/index.html，即打包生成的index.html
-  //mainWindow.loadURL('http://127.0.0.1:8090');
-  mainWindow.loadURL('http://blank1993.vip:8888/yize-crm');
 
-  // 自动打开调试台
-  mainWindow.webContents.openDevTools({
-    detach: true,
-  });
+  db.find({ key: 'url' }, (err, docs) => {
+    if (docs[0]) {
+      mainWindow.loadURL(docs[0].value);
+    }
 
-  mainWindow.on('closed', () => {
-    // 回收BrowserWindow对象
-    mainWindow = null;
+    // 自动打开调试台
+    mainWindow.webContents.openDevTools({
+      detach: true,
+    });
+
+    mainWindow.on('closed', () => {
+      // 回收BrowserWindow对象
+      mainWindow = null;
+    });
   });
 }
 

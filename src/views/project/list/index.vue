@@ -9,7 +9,6 @@
         style="display: none"
         @change="uploadChange"
       >
-
       <el-col :span="6">
         <el-button-group>
           <el-button v-if="roles[0]==='1'||roles[0]==='3'" type="primary" @click="handleAdd">新增项目</el-button>
@@ -21,7 +20,7 @@
           >编辑
           </el-button>
           <el-button
-            v-if="nowSelect"
+            v-if="nowSelect&&(roles[0]==='1'||roles[0]==='3')"
             type="danger"
             @click="handleRemove()"
           >删除
@@ -72,14 +71,14 @@
         align="center"
         label="项目类型"
         prop="projectType"
-        width="80"
+        width="35"
       />
       <el-table-column
 
         align="center"
         label="项目编号"
         prop="projectcCode"
-        width="140"
+        width="120"
       />
       <el-table-column
 
@@ -93,42 +92,41 @@
         align="center"
         label="联系人"
         prop="contact"
-        width="95"
+        width="60"
       />
       <el-table-column
 
         align="center"
         label="接收日期"
         prop="recTime"
-        width="95"
+        width="80"
       />
       <el-table-column
 
         align="center"
         label="提资"
         prop="raiseCapital"
-        width="50"
+        width="35"
       />
       <el-table-column
 
         align="center"
         label="负责人"
         prop="director"
-        width="95"
+        width="60"
       />
       <el-table-column
 
         align="center"
         label="设计深度"
         prop="designDepth"
-        width="80"
+        width="60"
       />
       <el-table-column
-
         align="center"
         label="计划完成时间"
         prop="planTime"
-        width="130"
+        width="110"
       >
         <template slot-scope="{row}">
           {{ row.planTime }}{{ row.planTimeHalf }}
@@ -137,42 +135,37 @@
       </el-table-column>
       <el-table-column
         v-if="roles[0]!=='2'"
-
         align="center"
         label="给水估时"
         prop="geishuiTime"
-        width="80"
+        width="35"
       />
       <el-table-column
         v-if="roles[0]!=='2'"
-
         align="center"
         label=" 排水估时 "
         prop="paishuiTime"
-        width="80"
+        width="35"
       />
       <el-table-column
         v-if="roles[0]!=='2'"
-
         align="center"
         label="电气估时"
         prop="electricTime"
-        width="80"
+        width="35"
       />
       <el-table-column
         v-if="roles[0]!=='2'"
-
         align="center"
         label="水景估时"
         prop="waterscapeTime"
-        width="80"
+        width="35"
       />
       <el-table-column
-
         align="center"
         label="给水设计"
         prop="geishuiDesign"
-        width="95"
+        width="80"
       >
         <template slot-scope="{row}">
           <div>
@@ -182,123 +175,107 @@
       </el-table-column>
       <el-table-column
         v-if="roles[0]!=='1'"
-
         align="center"
         label="实际用时"
         prop="geishuiActulTime"
-        width="80"
+        width="35"
       />
       <el-table-column
         v-if="roles[0]!=='2'"
-
         align="center"
         label="给水评分"
         prop="geishuiPoint"
-        width="80"
+        width="35"
       />
       <el-table-column
-
         align="center"
         label="排水设计"
         prop="paishuiDesign"
-        width="95"
+        width="80"
       />
       <el-table-column
         v-if="roles[0]!=='1'"
-
         align="center"
         label="实际用时"
         prop="paishuiActulTime"
-        width="80"
+        width="35"
       />
       <el-table-column
         v-if="roles[0]!=='2'"
-
         align="center"
         label="排水评分"
         prop="paishuiPoint"
-        width="80"
+        width="35"
       />
       <el-table-column
-
         align="center"
         label="电气设计"
         prop="electricDesign"
-        width="95"
+        width="80"
       />
       <el-table-column
         v-if="roles[0]!=='1'"
-
         align="center"
         label="实际用时"
         prop="electricActulTime"
-        width="80"
+        width="35"
       />
       <el-table-column
         v-if="roles[0]!=='2'"
-
         align="center"
         label="电气评分"
         prop="electricPoint"
-        width="80"
+        width="35"
       />
       <el-table-column
-
         align="center"
         label="水景设计"
         prop="waterscapeDesign"
-        width="95"
+        width="80"
       />
       <el-table-column
         v-if="roles[0]!=='1'"
-
         align="center"
         label="实际用时"
         prop="waterscapeActulTime"
-        width="80"
+        width="35"
       />
       <el-table-column
         v-if="roles[0]!=='2'"
-
         align="center"
         label="水景评分"
         prop="waterscapePoint"
-        width="80"
+        width="35"
       />
       <el-table-column
-
         align="center"
         label="本次泵数"
         prop="pumps"
-        width="80"
+        width="35"
       />
       <el-table-column
-
         align="center"
         label="项目类别"
         prop="projectCategory"
-        width="95"
+        width="80"
       />
       <el-table-column
         v-if="roles[0]==='3'||roles[0]==='4'"
-
         align="center"
         label="难度系数"
         prop="degreeDifficulty"
-        width="95"
+        width="35"
       />
       <el-table-column
-
         align="center"
         label="水泵总数"
         prop="pumpsTotal"
-        width="95"
+        width="35"
       />
       <el-table-column
-
         align="center"
         label="审核意见单"
-        width="95"
+        width="50"
       >
         <template slot-scope="{row}">
           <el-button v-if="row.examineOpinion" type="text" @click="openInstruction(row.examineOpinion)">打开</el-button>
@@ -306,14 +283,12 @@
       </el-table-column>
       <el-table-column
         v-if="roles[0]==='3'||roles[0]==='4'"
-
         align="center"
         label="合同编号"
         prop="contract"
-        width="95"
+        width="80"
       />
     </el-table>
-
     <!-- 编辑或新建 -->
     <edit-dialog :form-data="projectForm" />
   </div>
@@ -489,9 +464,10 @@ export default {
         if (this.tableData.list[row.rowIndex].finish === '否') { return { background: 'red' }; }
       }
       if (row.column.property === 'projectName') {
-        console.log(this.checkEmpty(this.tableData.list[row.rowIndex].examineUser));
-        if (this.checkEmpty(this.tableData.list[row.rowIndex].examineTime) === true
-        || this.checkEmpty(this.tableData.list[row.rowIndex].examineUser) === true) { return { background: 'red' }; }
+        if (this.tableData.list[row.rowIndex].examine === '是') {
+          if (this.checkEmpty(this.tableData.list[row.rowIndex].examineTime) === true
+            || this.checkEmpty(this.tableData.list[row.rowIndex].examineUser) === true) { return { background: 'red' }; }
+        }
       }
       return '';
     },
@@ -525,7 +501,7 @@ export default {
         });
         await this.fetchData();
       } catch (e) {
-        this.$notify.info('已取消删除');
+        console.log(e);
       }
     },
     handleAdd() {

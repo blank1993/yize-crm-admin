@@ -161,3 +161,8 @@ a:hover {
 .el-table__body tr.current-row > td {
   background-color: #efe9de;
 }
+
+.el-table .cell {
+  padding-right: 0!important;
+  padding-left: 0!important;
+}
