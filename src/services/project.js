@@ -34,6 +34,16 @@ const listByCode = (projectCode) => request({
   params: { projectCode },
 });
 
+const importProject = (file) => {
+  const params = new FormData();
+  params.append('file', file);
+  return request({
+    url: '/admin/project/import',
+    method: 'post',
+    data: params,
+  });
+};
+
 export default {
   add,
   list,
@@ -41,4 +51,5 @@ export default {
   get,
   remove,
   listByCode,
+  importProject,
 };

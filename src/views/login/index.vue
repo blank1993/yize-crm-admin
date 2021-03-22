@@ -18,10 +18,10 @@ export default {
   },
   computed: {},
   async created() {
-    // const { remote } = window.electron;
-    // const { machineIdSync } = remote.require('node-machine-id');
+    const { remote } = window.electron;
+    const { machineIdSync } = remote.require('node-machine-id');
     try {
-      const { data } = await LoginService.login(AES.encrypt('dfb0ba52-623c-49ff-b9cc-0c7ff1a98734'));
+      const { data } = await LoginService.login(AES.encrypt(machineIdSync({ original: true })));
       setToken(data);
       await this.$router.push('/index');
     } catch (err) {

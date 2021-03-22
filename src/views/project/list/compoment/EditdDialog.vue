@@ -14,7 +14,12 @@
         <template>
           <el-col :span="8">
             <el-form-item label=" 项目类型 ">
-              <el-select v-model="form.data.projectType" :disabled="roles[0]==='2'||roles[0]==='4'" style="width: 100%" placeholder="请选择">
+              <el-select
+                v-model="form.data.projectType"
+                :disabled="roles[0]==='2'||roles[0]==='4'"
+                style="width: 100%"
+                placeholder="请选择"
+              >
                 <el-option
                   v-for="item in projectTypes"
                   :key="item.value"
@@ -26,13 +31,18 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label=" 项目编号 ">
-              <el-input v-model="form.data.projectcCode" :disabled="roles[0]==='2'||roles[0]==='4'" @change="projectChange" />
+              <el-input
+                v-model="form.data.projectcCode"
+                :disabled="roles[0]==='2'||roles[0]==='4'"
+                @change="projectChange"
+              />
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label=" 接收日期 ">
               <el-date-picker
                 v-model="form.data.recTime"
+                :editable="false"
                 :disabled="roles[0]==='2'||roles[0]==='4'"
                 value-format="yyyy-MM-dd"
                 type="date"
@@ -85,8 +95,18 @@
 
           <el-col :span="12">
             <el-form-item label="计划完成日期">
-              <el-date-picker v-model="form.data.planTime" :disabled="roles[0]==='2'||roles[0]==='4'" value-format="yyyy-MM-dd" type="date" />
-              <el-radio-group v-model="form.data.planTimeHalf" :disabled="roles[0]==='2'||roles[0]==='4'" style="margin-left: 10px">
+              <el-date-picker
+                v-model="form.data.planTime"
+                :editable="false"
+                :disabled="roles[0]==='2'||roles[0]==='4'"
+                value-format="yyyy-MM-dd"
+                type="date"
+              />
+              <el-radio-group
+                v-model="form.data.planTimeHalf"
+                :disabled="roles[0]==='2'||roles[0]==='4'"
+                style="margin-left: 10px"
+              >
                 <el-radio label="上午">上午</el-radio>
                 <el-radio label="下午">下午</el-radio>
               </el-radio-group>
@@ -95,7 +115,12 @@
 
           <el-col :span="6">
             <el-form-item label="是否完成">
-              <el-select v-model="form.data.finish" :disabled="roles[0]==='2'||roles[0]==='4'" style="width: 100%" placeholder="请选择">
+              <el-select
+                v-model="form.data.finish"
+                :disabled="roles[0]==='2'||roles[0]==='4'"
+                style="width: 100%"
+                placeholder="请选择"
+              >
                 <el-option
                   v-for="item in tOrfList"
                   :key="item.value"
@@ -108,7 +133,12 @@
 
           <el-col :span="6">
             <el-form-item label="是否需要审核">
-              <el-select v-model="form.data.examine" :disabled="roles[0]==='2'||roles[0]==='4'" style="width: 100%" placeholder="请选择">
+              <el-select
+                v-model="form.data.examine"
+                :disabled="roles[0]==='2'||roles[0]==='4'"
+                style="width: 100%"
+                placeholder="请选择"
+              >
                 <el-option
                   v-for="item in tOrfList"
                   :key="item.value"
@@ -120,23 +150,47 @@
           </el-col>
 
           <el-col :span="6">
-            <el-form-item label=" 给水估时 ">
-              <el-input-number v-model="form.data.geishuiTime" :disabled="roles[0]==='2'||roles[0]==='4'" size="small" :step="0.1" :min="0" />
+            <el-form-item v-if="roles[0]!=='2'" label=" 给水估时 ">
+              <el-input-number
+                v-model="form.data.geishuiTime"
+                :disabled="roles[0]==='2'||roles[0]==='4'"
+                size="small"
+                :step="0.1"
+                :min="0"
+              />
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label=" 排水估时 ">
-              <el-input-number v-model="form.data.paishuiTime" :disabled="roles[0]==='2'||roles[0]==='4'" size="small" :step="0.1" :min="0" />
+            <el-form-item v-if="roles[0]!=='2'" label=" 排水估时 ">
+              <el-input-number
+                v-model="form.data.paishuiTime"
+                :disabled="roles[0]==='2'||roles[0]==='4'"
+                size="small"
+                :step="0.1"
+                :min="0"
+              />
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label=" 电气估时 ">
-              <el-input-number v-model="form.data.electricTime" :disabled="roles[0]==='2'||roles[0]==='4'" size="small" :step="0.1" :min="0" />
+            <el-form-item v-if="roles[0]!=='2'" label=" 电气估时 ">
+              <el-input-number
+                v-model="form.data.electricTime"
+                :disabled="roles[0]==='2'||roles[0]==='4'"
+                size="small"
+                :step="0.1"
+                :min="0"
+              />
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label=" 水景估时 ">
-              <el-input-number v-model="form.data.waterscapeTime" :disabled="roles[0]==='2'||roles[0]==='4'" size="small" :step="0.1" :min="0" />
+            <el-form-item v-if="roles[0]!=='2'" label=" 水景估时 ">
+              <el-input-number
+                v-model="form.data.waterscapeTime"
+                :disabled="roles[0]==='2'||roles[0]==='4'"
+                size="small"
+                :step="0.1"
+                :min="0"
+              />
             </el-form-item>
           </el-col>
           <el-col :span="6">
@@ -161,7 +215,7 @@
           </el-col>
 
           <el-col :span="6">
-            <el-form-item label=" 给水评分 ">
+            <el-form-item v-if="roles[0]!=='2'" label=" 给水评分 ">
               <el-select v-model="form.data.geishuiPoint" :disabled="roles[0]==='2'||roles[0]==='4'" placeholder="请选择">
                 <el-option
                   v-for="item in pointList"
@@ -174,7 +228,7 @@
           </el-col>
 
           <el-col :span="6">
-            <el-form-item label=" 排水评分 ">
+            <el-form-item v-if="roles[0]!=='2'" label=" 排水评分 ">
               <el-select v-model="form.data.paishuiPoint" :disabled="roles[0]==='2'||roles[0]==='4'" placeholder="请选择">
                 <el-option
                   v-for="item in pointList"
@@ -187,7 +241,7 @@
           </el-col>
 
           <el-col :span="6">
-            <el-form-item label=" 电气评分 ">
+            <el-form-item v-if="roles[0]!=='2'" label=" 电气评分 ">
               <el-select v-model="form.data.electricPoint" :disabled="roles[0]==='2'||roles[0]==='4'" placeholder="请选择">
                 <el-option
                   v-for="item in pointList"
@@ -200,8 +254,12 @@
           </el-col>
 
           <el-col :span="6">
-            <el-form-item label=" 水景评分 ">
-              <el-select v-model="form.data.waterscapePoint" :disabled="roles[0]==='2'||roles[0]==='4'" placeholder="请选择">
+            <el-form-item v-if="roles[0]!=='2'" label=" 水景评分 ">
+              <el-select
+                v-model="form.data.waterscapePoint"
+                :disabled="roles[0]==='2'||roles[0]==='4'"
+                placeholder="请选择"
+              >
                 <el-option
                   v-for="item in pointList"
                   :key="item.value"
@@ -215,7 +273,12 @@
 
           <el-col :span="16">
             <el-form-item label=" 项目类别 ">
-              <el-select v-model="form.data.projectCategory" :disabled="roles[0]==='2'||roles[0]==='4'" style="width: 100%" placeholder="请选择">
+              <el-select
+                v-model="form.data.projectCategory"
+                :disabled="roles[0]==='2'||roles[0]==='4'"
+                style="width: 100%"
+                placeholder="请选择"
+              >
                 <el-option
                   v-for="item in projectCategorys"
                   :key="item.value"
@@ -246,64 +309,126 @@
           </el-col>
         </template>
 
-        <!-- 区域3 -->
+
+        <!-- 区域2 -->
         <template>
           <el-col :span="6">
-            <el-form-item label=" 给水实际用时 ">
-              <el-input-number v-model="form.data.geishuiActulTime" :disabled="roles[0]==='4'" size="small" :step="0.1" :min="0" />
+            <el-form-item
+              v-if="roles[0]==='2'||roles[0]==='3'||roles[0]==='4'"
+              label=" 给水实际用时 "
+            >
+              <el-input-number
+                v-model="form.data.geishuiActulTime"
+                :disabled="roles[0]==='4'"
+                size="small"
+                :step="0.1"
+                :min="0"
+              />
             </el-form-item>
           </el-col>
 
           <el-col :span="6">
-            <el-form-item label=" 排水实际用时 ">
-              <el-input-number v-model="form.data.paishuiActulTime" :disabled="roles[0]==='4'" size="small" :step="0.1" :min="0" />
+            <el-form-item
+              v-if="roles[0]==='2'||roles[0]==='3'||roles[0]==='4'"
+              label=" 排水实际用时 "
+            >
+              <el-input-number
+                v-model="form.data.paishuiActulTime"
+                :disabled="roles[0]==='4'"
+                size="small"
+                :step="0.1"
+                :min="0"
+              />
             </el-form-item>
           </el-col>
 
           <el-col :span="6">
-            <el-form-item label=" 电气实际用时 ">
-              <el-input-number v-model="form.data.electricActulTime" :disabled="roles[0]==='4'" size="small" :step="0.1" :min="0" />
+            <el-form-item
+              v-if="roles[0]==='2'||roles[0]==='3'||roles[0]==='4'"
+
+              label=" 电气实际用时 "
+            >
+              <el-input-number
+                v-model="form.data.electricActulTime"
+                :disabled="roles[0]==='4'"
+                size="small"
+                :step="0.1"
+                :min="0"
+              />
             </el-form-item>
           </el-col>
 
           <el-col :span="6">
-            <el-form-item label=" 水景实际用时 ">
-              <el-input-number v-model="form.data.waterscapeActulTime" :disabled="roles[0]==='4'" size="small" :step="0.1" :min="0" />
+            <el-form-item
+              v-if="roles[0]==='2'||roles[0]==='3'||roles[0]==='4'"
+
+              label=" 水景实际用时 "
+            >
+              <el-input-number
+                v-model="form.data.waterscapeActulTime"
+                :disabled="roles[0]==='4'"
+                size="small"
+                :step="0.1"
+                :min="0"
+              />
             </el-form-item>
           </el-col>
-
           <el-col :span="12">
             <el-form-item label="本次水泵数量">
-              <el-input-number v-model="form.data.pumps" :disabled="roles[0]==='4'" size="small" :min="0" />
+              <el-input-number v-model="form.data.pumps" :disabled="roles[0]==='4'||roles[0]==='1'" size="small" :min="0" />
             </el-form-item>
           </el-col>
 
           <el-col :span="12">
             <el-form-item label="水泵总数">
-              <el-input-number v-model="form.data.pumpsTotal" :disabled="roles[0]==='4'" size="small" :min="0" />
+              <el-input-number v-model="form.data.pumpsTotal" :disabled="roles[0]==='4'||roles[0]==='1'" size="small" :min="0" />
             </el-form-item>
           </el-col>
         </template>
 
-        <el-col :span="8">
-          <el-form-item label="审核人">
-            <el-input v-model="form.data.examineUser" :disabled="roles[0]==='4'" />
-          </el-form-item>
-        </el-col>
 
-        <el-col :span="8">
-          <el-form-item label="审核日期">
-            <el-date-picker v-model="form.data.examineTime" :disabled="roles[0]==='4'" value-format="yyyy-MM-dd" type="date" />
-          </el-form-item>
-        </el-col>
+        <!-- 区域3 -->
+        <template>
+          <el-col :span="8">
+            <el-form-item label="审核人">
+              <el-input v-model="form.data.examineUser" :disabled="roles[0]==='4'||roles[0]==='1'||roles[0]==='2'" />
+            </el-form-item>
+          </el-col>
 
-        <el-col :span="8">
-          <el-form-item label="审核意见单">
-            <el-button v-if="form.data.examineOpinion" :disabled="roles[0]==='4'" size="small" type="text" @click="openInstruction(form.data.examineOpinion)">查看</el-button>
-            <el-button v-if="form.data.examineOpinion" :disabled="roles[0]==='4'" type="danger" size="small" @click="form.data.examineOpinion=''">删除</el-button>
-            <el-button v-else :disabled="roles[0]==='4'" type="primary" size="small" @click="handleUpload">上传文件</el-button>
-          </el-form-item>
-        </el-col>
+          <el-col :span="8">
+            <el-form-item label="审核日期">
+              <el-date-picker v-model="form.data.examineTime" :editable="false" :disabled="roles[0]==='4'||roles[0]==='1'||roles[0]==='2'" value-format="yyyy-MM-dd" type="date" />
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="8">
+            <el-form-item label="审核意见单">
+              <el-button
+                v-if="form.data.examineOpinion"
+                :disabled="roles[0]==='4'||roles[0]==='1'||roles[0]==='2'"
+                size="small"
+                type="text"
+                @click="openInstruction(form.data.examineOpinion)"
+              >查看
+              </el-button>
+              <el-button
+                v-if="form.data.examineOpinion"
+                :disabled="roles[0]==='4'||roles[0]==='1'||roles[0]==='2'"
+                type="danger"
+                size="small"
+                @click="form.data.examineOpinion=''"
+              >删除
+              </el-button>
+              <el-button
+                v-else
+                :disabled="roles[0]==='4'||roles[0]==='1'||roles[0]==='2'"
+                type="primary"
+                size="small"
+                @click="handleUpload"
+              >上传文件</el-button>
+            </el-form-item>
+          </el-col>
+        </template>
 
         <!-- 区域4 -->
         <template v-if="roles[0]==='3'||roles[0]==='4'">
@@ -350,7 +475,6 @@
           </el-col>
         </template>
       </el-row>
-
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="form.visible = false">取 消</el-button>
@@ -370,32 +494,102 @@ export default {
     formData: {
       type: Object,
       require: true,
-      default: () => {},
+      default: () => {
+      },
     },
   },
   data() {
     return {
       form: this.formData,
-      raiseCapitalList: [{ label: '全', value: '全' }, { label: '不全', value: '不全' }],
-      pointList: [{ label: '-2', value: '-2' },
-        { label: '-1', value: '-1' },
-        { label: '0', value: '0' },
-        { label: '1', value: '1' },
-        { label: '2', value: '2' }],
-      tOrfList: [{ label: '是', value: '是' }, { label: '否', value: '否' }],
-      projectTypes: [{ label: '修', value: '修' }, { label: '新', value: '新' }, { label: '增', value: '增' }],
+      raiseCapitalList: [{
+        label: '全',
+        value: '全',
+      }, {
+        label: '不全',
+        value: '不全',
+      }],
+      pointList: [{
+        label: '-2',
+        value: '-2',
+      },
+      {
+        label: '-1',
+        value: '-1',
+      },
+      {
+        label: '0',
+        value: '0',
+      },
+      {
+        label: '1',
+        value: '1',
+      },
+      {
+        label: '2',
+        value: '2',
+      }],
+      tOrfList: [{
+        label: '是',
+        value: '是',
+      }, {
+        label: '否',
+        value: '否',
+      }],
+      projectTypes: [{
+        label: '修',
+        value: '修',
+      }, {
+        label: '新',
+        value: '新',
+      }, {
+        label: '增',
+        value: '增',
+      }],
       projectCategorys: [
-        { label: '商业地产', value: '商业地产' },
-        { label: '售楼处', value: '售楼处' },
-        { label: '示范区', value: '示范区' },
-        { label: '样板区', value: '样板区' },
-        { label: '展示区住宅公共绿地别墅', value: '展示区住宅公共绿地别墅' },
-        { label: '其他', value: '其他' }],
-      designDepthList: [{ label: '施工', value: '施工' },
-        { label: '扩初', value: '扩初' },
-        { label: '绿建', value: '绿建' },
-        { label: '报建', value: '报建' },
-        { label: '方案', value: '方案' }],
+        {
+          label: '商业地产',
+          value: '商业地产',
+        },
+        {
+          label: '售楼处',
+          value: '售楼处',
+        },
+        {
+          label: '示范区',
+          value: '示范区',
+        },
+        {
+          label: '样板区',
+          value: '样板区',
+        },
+        {
+          label: '展示区住宅公共绿地别墅',
+          value: '展示区住宅公共绿地别墅',
+        },
+        {
+          label: '其他',
+          value: '其他',
+        }],
+      designDepthList: [{
+        label: '施工',
+        value: '施工',
+      },
+      {
+        label: '扩初',
+        value: '扩初',
+      },
+      {
+        label: '绿建',
+        value: '绿建',
+      },
+      {
+        label: '报建',
+        value: '报建',
+      },
+      {
+        label: '方案',
+        value: '方案',
+      }],
     };
   },
   computed: {
@@ -422,10 +616,13 @@ export default {
           this.form.title = '新增';
           this.form.data = {
             director: this.name,
-            recTime: this.$dayjs().format('YYYY-MM-DD'),
+            recTime: this.$dayjs()
+              .format('YYYY-MM-DD'),
             raiseCapital: '全',
             designDepth: '施工',
             structure: '否',
+            finish: '否',
+            examine: '是',
           };
         }
       }
@@ -436,7 +633,11 @@ export default {
       window.location.href = process.env.VUE_APP_BASE_URL + url;
     },
     viewContract() {
-      this.$notify.warning({ title: '警告', message: '还未有合同模块', duration: 2500 });
+      this.$notify.warning({
+        title: '警告',
+        message: '还未有合同模块',
+        duration: 2500,
+      });
     },
     async projectChange() {
       if (!this.form.data.id) {
@@ -476,17 +677,29 @@ export default {
     async upload(e) {
       const { data } = await FileService.upload(e.target.files[0]);
       this.form.data.examineOpinion = data.url;
-      this.$notify.success({ title: '成功', message: '上传成功', duration: 2500 });
+      this.$notify.success({
+        title: '成功',
+        message: '上传成功',
+        duration: 2500,
+      });
     },
     async save() {
       if (this.form.data.id) {
         await ProjectService.update(this.form.data);
-        this.$notify.success({ title: '成功', message: '保存成功', duration: 2500 });
+        this.$notify.success({
+          title: '成功',
+          message: '保存成功',
+          duration: 2500,
+        });
         await this.$parent.fetchData();
         this.form.visible = false;
       } else {
         await ProjectService.add(this.form.data);
-        this.$notify.success({ title: '成功', message: '保存成功', duration: 2500 });
+        this.$notify.success({
+          title: '成功',
+          message: '保存成功',
+          duration: 2500,
+        });
         await this.$parent.fetchData();
         this.form.visible = false;
       }
@@ -495,10 +708,10 @@ export default {
 };
 </script>
 
-<style rel="stylesheet/scss" lang="scss" scoped>
-.project-dialog {
-::v-deep .el-rate{
-  margin-top: 8px;
-}
-}
-</style>
+  <style rel="stylesheet/scss" lang="scss" scoped>
+    .project-dialog {
+    ::v-deep .el-rate {
+    margin-top: 8px;
+    }
+    }
+ </style>

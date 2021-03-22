@@ -2,9 +2,18 @@
   <div class="app-container">
     <el-row type="flex" style="margin-bottom: 10px">
 
+      <input
+        ref="uploadContent"
+        type="file"
+        accept=".xls"
+        style="display: none"
+        @change="uploadChange"
+      >
+
       <el-col :span="6">
         <el-button-group>
-          <el-button type="primary" @click="handleAdd">新增项目</el-button>
+          <el-button v-if="roles[0]==='1'||roles[0]==='3'" type="primary" @click="handleAdd">新增项目</el-button>
+          <el-button v-if="roles[0]==='3'" type="primary" @click="$refs.uploadContent.click()">导入</el-button>
           <el-button
             v-if="nowSelect"
             type="primary"
@@ -19,7 +28,6 @@
           </el-button>
         </el-button-group>
       </el-col>
-
 
       <el-col :span="18" style="text-align: right">
         计划完成时间：
@@ -51,75 +59,75 @@
     </div>
 
     <el-table
+      v-loading="tableData.loading"
+      :cell-style="cellStyle"
       :data="tableData.list"
       :border="true"
-      :cell-style="cellStyle"
       :height="'calc(100vh - 270px)'"
       highlight-current-row
-      :loading="tableData.loading"
       @current-change="selectChange"
     >
       <el-table-column
-        :resizable="false"
+
         align="center"
         label="项目类型"
         prop="projectType"
         width="80"
       />
       <el-table-column
-        :resizable="false"
+
         align="center"
         label="项目编号"
         prop="projectcCode"
         width="140"
       />
       <el-table-column
-        :resizable="false"
+
         align="center"
         label="项目名称"
         prop="projectName"
         width="220"
       />
       <el-table-column
-        :resizable="false"
+
         align="center"
         label="联系人"
         prop="contact"
         width="95"
       />
       <el-table-column
-        :resizable="false"
+
         align="center"
         label="接收日期"
         prop="recTime"
         width="95"
       />
       <el-table-column
-        :resizable="false"
+
         align="center"
         label="提资"
         prop="raiseCapital"
         width="50"
       />
       <el-table-column
-        :resizable="false"
+
         align="center"
         label="负责人"
         prop="director"
         width="95"
       />
       <el-table-column
-        :resizable="false"
+
         align="center"
         label="设计深度"
         prop="designDepth"
         width="80"
       />
       <el-table-column
-        :resizable="false"
+
         align="center"
         label="计划完成时间"
-        prop="designDepth"
+        prop="planTime"
         width="130"
       >
         <template slot-scope="{row}">
@@ -128,35 +136,39 @@
 
       </el-table-column>
       <el-table-column
-        :resizable="false"
+        v-if="roles[0]!=='2'"
+
         align="center"
         label="给水估时"
         prop="geishuiTime"
         width="80"
       />
       <el-table-column
-        :resizable="false"
+        v-if="roles[0]!=='2'"
+
         align="center"
         label=" 排水估时 "
         prop="paishuiTime"
         width="80"
       />
       <el-table-column
-        :resizable="false"
+        v-if="roles[0]!=='2'"
+
         align="center"
         label="电气估时"
         prop="electricTime"
         width="80"
       />
       <el-table-column
-        :resizable="false"
+        v-if="roles[0]!=='2'"
+
         align="center"
         label="水景估时"
         prop="waterscapeTime"
         width="80"
       />
       <el-table-column
-        :resizable="false"
+
         align="center"
         label="给水设计"
         prop="geishuiDesign"
@@ -169,112 +181,121 @@
         </template>
       </el-table-column>
       <el-table-column
-        :resizable="false"
+        v-if="roles[0]!=='1'"
+
         align="center"
         label="实际用时"
         prop="geishuiActulTime"
         width="80"
       />
       <el-table-column
-        :resizable="false"
+        v-if="roles[0]!=='2'"
+
         align="center"
         label="给水评分"
         prop="geishuiPoint"
         width="80"
       />
       <el-table-column
-        :resizable="false"
+
         align="center"
         label="排水设计"
         prop="paishuiDesign"
         width="95"
       />
       <el-table-column
-        :resizable="false"
+        v-if="roles[0]!=='1'"
+
         align="center"
         label="实际用时"
         prop="paishuiActulTime"
         width="80"
       />
       <el-table-column
-        :resizable="false"
+        v-if="roles[0]!=='2'"
+
         align="center"
         label="排水评分"
         prop="paishuiPoint"
         width="80"
       />
       <el-table-column
-        :resizable="false"
+
         align="center"
         label="电气设计"
         prop="electricDesign"
         width="95"
       />
       <el-table-column
-        :resizable="false"
+        v-if="roles[0]!=='1'"
+
         align="center"
         label="实际用时"
         prop="electricActulTime"
         width="80"
       />
       <el-table-column
-        :resizable="false"
+        v-if="roles[0]!=='2'"
+
         align="center"
         label="电气评分"
         prop="electricPoint"
         width="80"
       />
       <el-table-column
-        :resizable="false"
+
         align="center"
         label="水景设计"
         prop="waterscapeDesign"
         width="95"
       />
       <el-table-column
-        :resizable="false"
+        v-if="roles[0]!=='1'"
+
         align="center"
         label="实际用时"
         prop="waterscapeActulTime"
         width="80"
       />
       <el-table-column
-        :resizable="false"
+        v-if="roles[0]!=='2'"
+
         align="center"
         label="水景评分"
         prop="waterscapePoint"
         width="80"
       />
       <el-table-column
-        :resizable="false"
+
         align="center"
         label="本次泵数"
         prop="pumps"
         width="80"
       />
       <el-table-column
-        :resizable="false"
+
         align="center"
         label="项目类别"
         prop="projectCategory"
         width="95"
       />
       <el-table-column
-        :resizable="false"
+        v-if="roles[0]==='3'||roles[0]==='4'"
+
         align="center"
         label="难度系数"
         prop="degreeDifficulty"
         width="95"
       />
       <el-table-column
-        :resizable="false"
+
         align="center"
         label="水泵总数"
         prop="pumpsTotal"
         width="95"
       />
       <el-table-column
-        :resizable="false"
+
         align="center"
         label="审核意见单"
         width="95"
@@ -284,7 +305,8 @@
         </template>
       </el-table-column>
       <el-table-column
-        :resizable="false"
+        v-if="roles[0]==='3'||roles[0]==='4'"
+
         align="center"
         label="合同编号"
         prop="contract"
@@ -298,6 +320,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import ProjectService from '@/services/project';
 import EditDialog from './compoment/EditdDialog.vue';
 
@@ -311,7 +334,7 @@ export default {
         shortcuts: [{
           text: '当前周',
           onClick: (picker) => {
-            const end = this.$dayjs().endOf('week').toDate();
+            const end = this.$dayjs().add(1, 'month').toDate();
             const start = this.$dayjs().startOf('week').toDate();
             picker.$emit('pick', [start, end]);
           },
@@ -357,7 +380,7 @@ export default {
         visible: false,
       },
       dateRange: [this.$dayjs().startOf('week').toDate(),
-        this.$dayjs().endOf('week').toDate()],
+        this.$dayjs().add(1, 'month').toDate()],
       // 表格数据
       tableData: {
         params: {
@@ -373,10 +396,23 @@ export default {
         { label: '增', value: '增' }],
     };
   },
+  computed: {
+    ...mapGetters([
+      'name',
+      'roles',
+    ]),
+  },
   mounted() {
     this.fetchData();
   },
   methods: {
+    async uploadChange(e) {
+      const file = e.target.files[0];
+      if (file == null) return;
+      const { data } = await ProjectService.importProject(file);
+      window.confirm(data);
+      this.$refs.uploadContent.value = '';
+    },
     selectChange(row) {
       this.nowSelect = row;
     },
@@ -384,7 +420,7 @@ export default {
       window.location.href = process.env.VUE_APP_BASE_URL + url;
     },
     checkEmpty(data) {
-      return data === null || data === undefined || data === '';
+      return data === null || data === undefined || data === '' || data === 0;
     },
     cellStyle(row) {
       const color = 'rgb(128, 0, 128)';
@@ -449,6 +485,14 @@ export default {
         if (this.checkEmpty(this.tableData.list[row.rowIndex].waterscapeDesign) === false
           && this.checkEmpty(this.tableData.list[row.rowIndex].pumps) === true) { return { background: color }; }
       }
+      if (row.column.property === 'planTime') {
+        if (this.tableData.list[row.rowIndex].finish === '否') { return { background: 'red' }; }
+      }
+      if (row.column.property === 'projectName') {
+        console.log(this.checkEmpty(this.tableData.list[row.rowIndex].examineUser));
+        if (this.checkEmpty(this.tableData.list[row.rowIndex].examineTime) === true
+        || this.checkEmpty(this.tableData.list[row.rowIndex].examineUser) === true) { return { background: 'red' }; }
+      }
       return '';
     },
     /**
@@ -464,6 +508,7 @@ export default {
           ...this.tableData.params,
         });
       this.tableData.list = data;
+      this.tableData.loading = false;
     },
     async handleRemove() {
       try {

@@ -42,13 +42,23 @@ export const asyncRouterMap = [
     },
     children: [
       {
+        path: 'user',
+        component: () => import('@/views/system/user/list'),
+        name: 'UserList',
+        meta: {
+          title: '用户列表',
+          icon: 'icon-team',
+          roles: ['3'],
+        },
+      },
+      {
         path: 'log',
         component: () => import('@/views/system/userLog/list'),
         name: 'Log',
         meta: {
           title: '日志',
           icon: 'icon-unorderedlist',
-          roles: ['0'],
+          roles: ['3'],
         },
       },
     ],
