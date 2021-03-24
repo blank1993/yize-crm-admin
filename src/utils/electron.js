@@ -40,7 +40,7 @@ export function initMenu() {
     e.preventDefault();
     if (isEleEditable(e.target)) {
       menu.popup(remote.getCurrentWindow());
-    } else {
+    } else if (e.ignore !== 'true') {
       // 判断有文本选中
       const selectText = window.getSelection().toString();
       if (selectText) {

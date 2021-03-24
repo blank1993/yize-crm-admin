@@ -26,7 +26,11 @@ service.interceptors.response.use(
   /**
   * code为非200是抛错 可结合自己业务进行修改
   */
+
     const res = response.data;
+    if (response.headers['content-type'] === 'application/force-download') {
+      return Promise.resolve(response);
+    }
     if (res.code !== 200) {
       if (res.code === 401) {
         MessageBox.confirm('你已被登出，可以取消继续留在该页面，或者重新登录', '确定登出', {

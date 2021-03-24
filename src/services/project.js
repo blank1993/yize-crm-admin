@@ -44,6 +44,14 @@ const importProject = (file) => {
   });
 };
 
+const exportExcel = (params) => request({
+  url: '/admin/project/export',
+  method: 'post',
+  params,
+  responseType: 'blob',
+});
+
+
 export default {
   add,
   list,
@@ -52,4 +60,5 @@ export default {
   remove,
   listByCode,
   importProject,
+  exportExcel,
 };

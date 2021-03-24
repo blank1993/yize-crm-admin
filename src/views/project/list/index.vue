@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="app-container" @click="clickTableRow">
     <el-row type="flex" style="margin-bottom: 10px">
 
       <input
@@ -9,10 +9,11 @@
         style="display: none"
         @change="uploadChange"
       >
-      <el-col :span="6">
+      <el-col :span="7">
         <el-button-group>
           <el-button v-if="roles[0]==='1'||roles[0]==='3'" type="primary" @click="handleAdd">新增项目</el-button>
           <el-button v-if="roles[0]==='3'" type="primary" @click="$refs.uploadContent.click()">导入</el-button>
+          <el-button v-if="roles[0]==='3'||roles[0]==='4'" type="primary" @click="exportExcel">导出</el-button>
           <el-button
             v-if="nowSelect"
             type="primary"
@@ -28,7 +29,7 @@
         </el-button-group>
       </el-col>
 
-      <el-col :span="18" style="text-align: right">
+      <el-col :span="17" style="text-align: right">
         计划完成时间：
         <el-date-picker
           v-model="dateRange"
@@ -58,12 +59,14 @@
     </div>
 
     <el-table
+      ref="singleTable"
       v-loading="tableData.loading"
       :cell-style="cellStyle"
       :data="tableData.list"
       :border="true"
       :height="'calc(100vh - 270px)'"
       highlight-current-row
+      @row-contextmenu="rightClick"
       @current-change="selectChange"
     >
       <el-table-column
@@ -291,6 +294,9 @@
     </el-table>
     <!-- 编辑或新建 -->
     <edit-dialog :form-data="projectForm" />
+    <div id="menu">
+      <div v-for="(item,index) in menus" :key="index" class="menu" @click.stop="infoClick(index)">{{ item }}</div>
+    </div>
   </div>
 </template>
 
@@ -366,6 +372,7 @@ export default {
         loading: false,
       },
       nowSelect: null,
+      menus: ['刷新', '编辑'],
       projectTypeOption: [{ label: '修', value: '修' },
         { label: '新', value: '新' },
         { label: '增', value: '增' }],
@@ -381,6 +388,51 @@ export default {
     this.fetchData();
   },
   methods: {
+    download(data, fileName) {
+      if (!data) {
+        return;
+      }
+      const url = window.URL.createObjectURL(new Blob([data]));
+      const link = document.createElement('a');
+      link.style.display = 'none';
+      link.href = url;
+      link.setAttribute('download', fileName);
+      document.body.appendChild(link);
+      link.click();
+    },
+    async exportExcel() {
+      const { data } = await ProjectService.exportExcel({
+        startDate: this.dateRange[0],
+        endDate: this.dateRange[1],
+        ...this.tableData.params,
+      });
+      this.download(data, '导出.xls');
+    },
+    infoClick(index) {
+      if (index === 0) window.location.reload();
+      if (index === 1) this.handleEdit();
+    },
+    clickTableRow() {
+      const menu = document.querySelector('#menu');
+      menu.style.display = 'none';
+    },
+    rightClick(row, column, event) {
+      const menu = document.querySelector('#menu');
+      event.ignore = 'true';
+      // 根据事件对象中鼠标点击的位置，进行定位
+      menu.style.left = `${event.clientX}px`;
+      menu.style.top = `${event.clientY}px`;
+      // 改变自定义菜单的隐藏与显示
+      menu.style.display = 'block';
+      // 获取当前右键点击table下标
+      // eslint-disable-next-line consistent-return
+      this.tableData.list.forEach((item) => {
+        if (item.name === row.name) {
+          this.$refs.singleTable.setCurrentRow(row);
+          return false;
+        }
+      });
+    },
     async uploadChange(e) {
       const file = e.target.files[0];
       if (file == null) return;
@@ -397,8 +449,11 @@ export default {
     checkEmpty(data) {
       return data === null || data === undefined || data === '' || data === 0;
     },
+    checkEmpty2(data) {
+      return data === null || data === undefined || data === '';
+    },
     cellStyle(row) {
-      const color = 'rgb(128, 0, 128)';
+      const color = 'rgb(128,128, 128)';
       if (row.column.property === 'geishuiDesign') {
         if (this.checkEmpty(this.tableData.list[row.rowIndex].geishuiTime) === false
           && this.checkEmpty(this.tableData.list[row.rowIndex].geishuiDesign) === true) { return { background: color }; }
@@ -411,7 +466,7 @@ export default {
 
       if (row.column.property === 'geishuiPoint') {
         if (this.checkEmpty(this.tableData.list[row.rowIndex].geishuiTime) === false
-          && this.checkEmpty(this.tableData.list[row.rowIndex].geishuiPoint) === true) { return { background: color }; }
+          && this.checkEmpty2(this.tableData.list[row.rowIndex].geishuiPoint) === true) { return { background: color }; }
       }
 
       if (row.column.property === 'paishuiDesign') {
@@ -426,7 +481,7 @@ export default {
 
       if (row.column.property === 'paishuiPoint') {
         if (this.checkEmpty(this.tableData.list[row.rowIndex].paishuiTime) === false
-          && this.checkEmpty(this.tableData.list[row.rowIndex].paishuiPoint) === true) { return { background: color }; }
+          && this.checkEmpty2(this.tableData.list[row.rowIndex].paishuiPoint) === true) { return { background: color }; }
       }
 
       if (row.column.property === 'electricDesign') {
@@ -441,7 +496,7 @@ export default {
 
       if (row.column.property === 'electricPoint') {
         if (this.checkEmpty(this.tableData.list[row.rowIndex].electricTime) === false
-          && this.checkEmpty(this.tableData.list[row.rowIndex].electricPoint) === true) { return { background: color }; }
+          && this.checkEmpty2(this.tableData.list[row.rowIndex].electricPoint) === true) { return { background: color }; }
       }
 
       if (row.column.property === 'waterscapeDesign') {
@@ -454,19 +509,19 @@ export default {
       }
       if (row.column.property === 'waterscapePoint') {
         if (this.checkEmpty(this.tableData.list[row.rowIndex].waterscapeTime) === false
-          && this.checkEmpty(this.tableData.list[row.rowIndex].waterscapePoint) === true) { return { background: color }; }
+          && this.checkEmpty2(this.tableData.list[row.rowIndex].waterscapePoint) === true) { return { background: color }; }
       }
       if (row.column.property === 'pumps') {
         if (this.checkEmpty(this.tableData.list[row.rowIndex].waterscapeDesign) === false
           && this.checkEmpty(this.tableData.list[row.rowIndex].pumps) === true) { return { background: color }; }
       }
       if (row.column.property === 'planTime') {
-        if (this.tableData.list[row.rowIndex].finish === '否') { return { background: 'red' }; }
+        if (this.tableData.list[row.rowIndex].finish === '否') { return { color: 'red' }; }
       }
       if (row.column.property === 'projectName') {
         if (this.tableData.list[row.rowIndex].examine === '是') {
           if (this.checkEmpty(this.tableData.list[row.rowIndex].examineTime) === true
-            || this.checkEmpty(this.tableData.list[row.rowIndex].examineUser) === true) { return { background: 'red' }; }
+            || this.checkEmpty(this.tableData.list[row.rowIndex].examineUser) === true) { return { color: 'red' }; }
         }
       }
       return '';
@@ -517,8 +572,28 @@ export default {
 </script>
 <style type="text/scss" lang="scss" scoped>
 .app-container {
+  background: $--background-color-base;
   ::v-deep .el-table td{
     padding: 0;
+  }
+
+  #menu {
+    width: 60px;
+    height: 50px;
+    overflow: hidden; /*隐藏溢出的元素*/
+    box-shadow: 0 1px 1px #888, 1px 0 1px #ccc;
+    position: fixed;
+    display: none;
+    background: #ffffff;
+    z-index: 10;
+  }
+
+  .menu {
+    width: 125px;
+    height: 25px;
+    line-height: 25px;
+    text-indent: 10px;
+    cursor: pointer;
   }
 }
 </style>

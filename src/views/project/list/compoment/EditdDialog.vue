@@ -199,22 +199,22 @@
           </el-col>
           <el-col :span="6">
             <el-form-item label=" 给水设计 ">
-              <el-input v-model="form.data.geishuiDesign" :disabled="roles[0]==='2'||roles[0]==='4'" />
+              <el-input v-model="form.data.geishuiDesign" :disabled="roles[0]==='4'" />
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label=" 排水设计 ">
-              <el-input v-model="form.data.paishuiDesign" :disabled="roles[0]==='2'||roles[0]==='4'" />
+              <el-input v-model="form.data.paishuiDesign" :disabled="roles[0]==='4'" />
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label=" 电气设计 ">
-              <el-input v-model="form.data.electricDesign" :disabled="roles[0]==='2'||roles[0]==='4'" />
+              <el-input v-model="form.data.electricDesign" :disabled="roles[0]==='4'" />
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label=" 水景设计 ">
-              <el-input v-model="form.data.waterscapeDesign" :disabled="roles[0]==='2'||roles[0]==='4'" />
+              <el-input v-model="form.data.waterscapeDesign" :disabled="roles[0]==='4'" />
             </el-form-item>
           </el-col>
 

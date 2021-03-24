@@ -158,8 +158,21 @@ a:hover {
   }
 }
 
-.el-table__body tr.current-row > td {
-  background-color: #efe9de;
+.el-table__body tr:hover>td{
+  background-color: #eff9de !important;
+}
+
+ .el-table__body tr.current-row>td{
+  background-color: #eff9de !important;
+}
+
+
+.el-table {
+  background: $--background-color-base;
+}
+
+.el-table td {
+  background: $--background-color-base;
 }
 
 .el-table .cell {
