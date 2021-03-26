@@ -123,7 +123,7 @@
         align="center"
         label="设计深度"
         prop="designDepth"
-        width="60"
+        width="45"
       />
       <el-table-column
         align="center"
@@ -277,11 +277,26 @@
       />
       <el-table-column
         align="center"
+        label="面积"
+        prop="area"
+        width="50"
+      />
+      <el-table-column
+        align="center"
         label="审核意见单"
         width="50"
       >
         <template slot-scope="{row}">
           <el-button v-if="row.examineOpinion" type="text" @click="openInstruction(row.examineOpinion)">打开</el-button>
+        </template>
+      </el-table-column>
+      <el-table-column
+        align="center"
+        label="指令单"
+        width="50"
+      >
+        <template slot-scope="{row}">
+          <el-button v-if="row.instruction" type="text" @click="openInstruction(row.instruction)">打开</el-button>
         </template>
       </el-table-column>
       <el-table-column

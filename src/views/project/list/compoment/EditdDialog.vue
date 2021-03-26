@@ -50,9 +50,20 @@
               />
             </el-form-item>
           </el-col>
-          <el-col :span="24">
+          <el-col :span="18">
             <el-form-item label=" 项目名称 ">
               <el-input v-model="form.data.projectName" :disabled="roles[0]==='2'||roles[0]==='4'" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="项目面积">
+              <el-input-number
+                v-model="form.data.area"
+                size="small"
+                :step="1"
+                :max="999999"
+                :min="0"
+              />
             </el-form-item>
           </el-col>
           <el-col :span="6">
@@ -101,6 +112,7 @@
                 :disabled="roles[0]==='2'||roles[0]==='4'"
                 value-format="yyyy-MM-dd"
                 type="date"
+                style="width: 140px"
               />
               <el-radio-group
                 v-model="form.data.planTimeHalf"
@@ -109,6 +121,7 @@
               >
                 <el-radio label="上午">上午</el-radio>
                 <el-radio label="下午">下午</el-radio>
+                <el-radio label="晚上">晚上</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
@@ -428,7 +441,7 @@
                 :disabled="roles[0]==='4'||roles[0]==='1'||roles[0]==='2'"
                 type="primary"
                 size="small"
-                @click="handleUpload"
+                @click="handleUpload('examineOpinion')"
               >上传文件</el-button>
             </el-form-item>
           </el-col>
@@ -466,9 +479,37 @@
             </el-form-item>
           </el-col>
 
-          <el-col :span="8">
+          <el-col :span="3">
             <el-form-item label="合同信息">
               <el-button type="primary" size="small" @click="viewContract">查看</el-button>
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="5">
+            <el-form-item v-if="roles[0]!=='2'" label="指令单">
+              <el-button
+                v-if="form.data.instruction"
+                :disabled="roles[0]==='1'||roles[0]==='2'"
+                size="small"
+                type="text"
+                @click="openInstruction(form.data.instruction)"
+              >查看
+              </el-button>
+              <el-button
+                v-if="form.data.instruction"
+                :disabled="roles[0]==='1'||roles[0]==='2'"
+                type="danger"
+                size="small"
+                @click="form.data.instruction=''"
+              >删除
+              </el-button>
+              <el-button
+                v-else
+                :disabled="roles[0]==='1'||roles[0]==='2'"
+                type="primary"
+                size="small"
+                @click="handleUpload('instruction')"
+              >上传文件</el-button>
             </el-form-item>
           </el-col>
 
@@ -504,6 +545,7 @@ export default {
   },
   data() {
     return {
+      uploadType: '',
       form: this.formData,
       raiseCapitalList: [{
         label: '全',
@@ -551,24 +593,28 @@ export default {
       }],
       projectCategorys: [
         {
-          label: '商业地产',
-          value: '商业地产',
+          label: '商业',
+          value: '商业',
         },
         {
-          label: '售楼处',
-          value: '售楼处',
-        },
-        {
-          label: '示范区',
-          value: '示范区',
+          label: '住宅',
+          value: '住宅',
         },
         {
           label: '样板区',
           value: '样板区',
         },
         {
-          label: '展示区住宅公共绿地别墅',
-          value: '展示区住宅公共绿地别墅',
+          label: '公共绿地',
+          value: '公共绿地',
+        },
+        {
+          label: '样板庭院',
+          value: '样板庭院',
+        },
+        {
+          label: '弱电',
+          value: '弱电',
         },
         {
           label: '其他',
@@ -684,7 +730,8 @@ export default {
         }
       }
     },
-    handleUpload() {
+    handleUpload(type) {
+      this.uploadType = type;
       const inputObj = document.createElement('input');
       inputObj.setAttribute('id', 'file');
       inputObj.setAttribute('type', 'file');
@@ -696,7 +743,7 @@ export default {
     },
     async upload(e) {
       const { data } = await FileService.upload(e.target.files[0]);
-      this.form.data.examineOpinion = data.url;
+      this.form.data[this.uploadType] = data.url;
       this.$notify.success({
         title: '成功',
         message: '上传成功',
