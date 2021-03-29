@@ -1,37 +1,497 @@
 <template>
-  <div class="app-container" />
+  <div class="app-container">
+    <el-row>
+      计划完成时间：
+      <el-date-picker
+        v-model="dateRange"
+        type="daterange"
+        start-placeholder="开始日期"
+        end-placeholder="结束日期"
+        :picker-options="pickerOptions"
+        value-format="yyyy-MM-dd"
+      />
+      <el-button type="primary" style="margin-left: 15px;margin-bottom: 10px" @click="fetchData">查询</el-button>
+    </el-row>
+    <el-table
+      :data="geishui"
+      :border="true"
+      :span-method="objectSpanMethod1"
+    >
+      <el-table-column
+        align="center"
+        label=""
+      >给水设计
+      </el-table-column>
+      <el-table-column
+        align="center"
+        label="姓名"
+        prop="design"
+      />
+      <el-table-column
+        align="center"
+        label="项目积分"
+        prop="point"
+      />
+      <el-table-column
+        align="center"
+        label="新项目量"
+        prop="newSum"
+      />
+      <el-table-column
+        align="center"
+        label="增项目量"
+        prop="addSum"
+      />
+      <el-table-column
+        align="center"
+        label="修改项目"
+        prop="fixSum"
+      />
+
+      <el-table-column
+        align="center"
+        label="平均准确度"
+        prop="avgPoint"
+      />
+      <el-table-column
+        align="center"
+        label="设计总用时"
+        prop="actulTimeSum"
+      />
+      <el-table-column
+        align="center"
+        label="预计总用时"
+        prop="planTimeSum"
+      />
+      <el-table-column
+        align="center"
+        label="效率"
+        prop="efficiency"
+      />
+      <el-table-column
+        align="center"
+        label="产值"
+        prop="degreeDifficultySumText"
+      />
+      <el-table-column
+        align="center"
+        label="日报"
+        prop="journal"
+      />
+    </el-table>
+    <el-table
+      v-if="paishui.length>0"
+      :data="paishui"
+      :border="true"
+      :show-header="false"
+      :span-method="objectSpanMethod2"
+    >
+      <el-table-column
+        align="center"
+        label=""
+      >排水设计
+      </el-table-column>
+      <el-table-column
+        align="center"
+        label="姓名"
+        prop="design"
+      />
+      <el-table-column
+        align="center"
+        label="项目积分"
+        prop="point"
+      />
+      <el-table-column
+        align="center"
+        label="新项目量"
+        prop="newSum"
+      />
+      <el-table-column
+        align="center"
+        label="增项目量"
+        prop="addSum"
+      />
+      <el-table-column
+        align="center"
+        label="修改项目"
+        prop="fixSum"
+      />
+
+      <el-table-column
+        align="center"
+        label="平均准确度"
+        prop="avgPoint"
+      />
+      <el-table-column
+        align="center"
+        label="设计总用时"
+        prop="actulTimeSum"
+      />
+      <el-table-column
+        align="center"
+        label="预计总用时"
+        prop="planTimeSum"
+      />
+      <el-table-column
+        align="center"
+        label="效率"
+        prop="efficiency"
+      />
+      <el-table-column
+        align="center"
+        label="产值"
+        prop="degreeDifficultySumText"
+      />
+      <el-table-column
+        align="center"
+        label="日报"
+        prop="journal"
+      />
+    </el-table>
+
+    <el-table
+      v-if="electric.length>0"
+      :data="electric"
+      :border="true"
+      :show-header="false"
+      :span-method="objectSpanMethod3"
+    >
+      <el-table-column
+        align="center"
+        label=""
+      >电气设计
+      </el-table-column>
+      <el-table-column
+        align="center"
+        label="姓名"
+        prop="design"
+      />
+      <el-table-column
+        align="center"
+        label="项目积分"
+        prop="point"
+      />
+      <el-table-column
+        align="center"
+        label="新项目量"
+        prop="newSum"
+      />
+      <el-table-column
+        align="center"
+        label="增项目量"
+        prop="addSum"
+      />
+      <el-table-column
+        align="center"
+        label="修改项目"
+        prop="fixSum"
+      />
+
+      <el-table-column
+        align="center"
+        label="平均准确度"
+        prop="avgPoint"
+      />
+      <el-table-column
+        align="center"
+        label="设计总用时"
+        prop="actulTimeSum"
+      />
+      <el-table-column
+        align="center"
+        label="预计总用时"
+        prop="planTimeSum"
+      />
+      <el-table-column
+        align="center"
+        label="效率"
+        prop="efficiency"
+      />
+      <el-table-column
+        align="center"
+        label="产值"
+        prop="degreeDifficultySumText"
+      />
+      <el-table-column
+        align="center"
+        label="日报"
+        prop="journal"
+      />
+    </el-table>
+
+    <el-table
+      v-if="waterscape.length>0"
+      :data="waterscape"
+      :border="true"
+      :show-header="false"
+      :span-method="objectSpanMethod4"
+    >
+      <el-table-column
+        align="center"
+        label=""
+      >水景设计
+      </el-table-column>
+      <el-table-column
+        align="center"
+        label="姓名"
+        prop="design"
+      />
+      <el-table-column
+        align="center"
+        label="项目积分"
+        prop="point"
+      />
+      <el-table-column
+        align="center"
+        label="新项目量"
+        prop="newSum"
+      />
+      <el-table-column
+        align="center"
+        label="增项目量"
+        prop="addSum"
+      />
+      <el-table-column
+        align="center"
+        label="修改项目"
+        prop="fixSum"
+      />
+
+      <el-table-column
+        align="center"
+        label="平均准确度"
+        prop="avgPoint"
+      />
+      <el-table-column
+        align="center"
+        label="设计总用时"
+        prop="actulTimeSum"
+      />
+      <el-table-column
+        align="center"
+        label="预计总用时"
+        prop="planTimeSum"
+      />
+      <el-table-column
+        align="center"
+        label="效率"
+        prop="efficiency"
+      />
+      <el-table-column
+        align="center"
+        label="产值"
+        prop="degreeDifficultySumText"
+      />
+      <el-table-column
+        align="center"
+        label="日报"
+        prop="journal"
+      />
+    </el-table>
+  </div>
 </template>
 
 <script>
+import ReportService from '@/services/report';
 
 export default {
-  components: {
-  },
+  components: {},
   data() {
     return {
-      projectForm: {
-        data: {},
-        visible: false,
+      pickerOptions: {
+        shortcuts: [{
+          text: '当前周',
+          onClick: (picker) => {
+            const end = this.$dayjs()
+              .add(1, 'month')
+              .toDate();
+            const start = this.$dayjs()
+              .startOf('week')
+              .toDate();
+            picker.$emit('pick', [start, end]);
+          },
+        }, {
+          text: '当前月',
+          onClick: (picker) => {
+            const end = this.$dayjs()
+              .endOf('month')
+              .toDate();
+            const start = this.$dayjs()
+              .startOf('month')
+              .toDate();
+            picker.$emit('pick', [start, end]);
+          },
+        }, {
+          text: '当前年',
+          onClick: (picker) => {
+            const end = this.$dayjs()
+              .endOf('year')
+              .toDate();
+            const start = this.$dayjs()
+              .startOf('year')
+              .toDate();
+            picker.$emit('pick', [start, end]);
+          },
+        }, {
+          text: '上一周',
+          onClick: (picker) => {
+            const end = this.$dayjs()
+              .add(-1, 'w')
+              .endOf('week')
+              .toDate();
+            const start = this.$dayjs()
+              .add(-1, 'w')
+              .startOf('week')
+              .toDate();
+            picker.$emit('pick', [start, end]);
+          },
+        }, {
+          text: '上一月',
+          onClick: (picker) => {
+            const end = this.$dayjs()
+              .add(-1, 'M')
+              .endOf('month')
+              .toDate();
+            const start = this.$dayjs()
+              .add(-1, 'M')
+              .startOf('month')
+              .toDate();
+            picker.$emit('pick', [start, end]);
+          },
+        }, {
+          text: '上一年',
+          onClick: (picker) => {
+            const end = this.$dayjs()
+              .add(-1, 'y')
+              .endOf('year')
+              .toDate();
+            const start = this.$dayjs()
+              .add(-1, 'y')
+              .startOf('year')
+              .toDate();
+            picker.$emit('pick', [start, end]);
+          },
+        }],
       },
-      // 表格数据
-      tableData: {
-        list: [],
-        total: null,
-        loading: false,
-        page: 1,
-        pageSize: 20,
-      },
+      dateRange: [this.$dayjs()
+        .startOf('week')
+        .toDate(),
+      this.$dayjs()
+        .add(1, 'month')
+        .toDate()],
+      geishui: [],
+      paishui: [],
+      electric: [],
+      waterscape: [],
     };
   },
   mounted() {
+    this.fetchData();
   },
   methods: {
+    async fetchData() {
+      if (this.dateRange === null) this.dateRange = [];
+      const { data: geishui } = await ReportService.design({
+        startDate: this.dateRange[0],
+        endDate: this.dateRange[1],
+        type: 'geishui',
+      });
+      const { data: paishui } = await ReportService.design({
+        startDate: this.dateRange[0],
+        endDate: this.dateRange[1],
+        type: 'paishui',
+      });
+      const { data: electric } = await ReportService.design({
+        startDate: this.dateRange[0],
+        endDate: this.dateRange[1],
+        type: 'electric',
+      });
+      const { data: waterscape } = await ReportService.design({
+        startDate: this.dateRange[0],
+        endDate: this.dateRange[1],
+        type: 'waterscape',
+      });
+      this.geishui = geishui;
+      this.paishui = paishui;
+      this.electric = electric;
+      this.waterscape = waterscape;
+    },
+    // eslint-disable-next-line consistent-return
+    objectSpanMethod1({
+      rowIndex, columnIndex,
+    }) {
+      if (columnIndex === 0) {
+        if (rowIndex === 0) {
+          return {
+            rowspan: this.geishui.length,
+            colspan: 1,
+          };
+        }
+        return {
+          rowspan: 0,
+          colspan: 0,
+        };
+      }
+    },
+    // eslint-disable-next-line consistent-return
+    objectSpanMethod2({
+      rowIndex, columnIndex,
+    }) {
+      if (columnIndex === 0) {
+        if (rowIndex === 0) {
+          return {
+            rowspan: this.paishui.length,
+            colspan: 1,
+          };
+        }
+        return {
+          rowspan: 0,
+          colspan: 0,
+        };
+      }
+    },
+    // eslint-disable-next-line consistent-return
+    objectSpanMethod3({
+      rowIndex, columnIndex,
+    }) {
+      if (columnIndex === 0) {
+        if (rowIndex === 0) {
+          return {
+            rowspan: this.electric.length,
+            colspan: 1,
+          };
+        }
+        return {
+          rowspan: 0,
+          colspan: 0,
+        };
+      }
+    },
+    // eslint-disable-next-line consistent-return
+    objectSpanMethod4({
+      rowIndex, columnIndex,
+    }) {
+      if (columnIndex === 0) {
+        if (rowIndex === 0) {
+          return {
+            rowspan: this.waterscape.length,
+            colspan: 1,
+          };
+        }
+        return {
+          rowspan: 0,
+          colspan: 0,
+        };
+      }
+    },
   },
 };
 </script>
 <style type="text/scss" lang="scss" scoped>
 .app-container {
-  ::v-deep .el-table td{
+  background: $--background-color-base;
+
+  ::v-deep .el-table td {
     padding: 0;
   }
 }

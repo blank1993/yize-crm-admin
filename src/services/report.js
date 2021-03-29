@@ -7,7 +7,14 @@ const director = (params) => request({
   params,
 });
 
+const design = (params) => request({
+  url: '/admin/report/design',
+  method: 'get',
+  params,
+});
+
 
 export default {
   director,
+  design,
 };
