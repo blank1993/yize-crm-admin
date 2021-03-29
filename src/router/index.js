@@ -83,11 +83,12 @@ export const asyncRouterMap = [
         },
       },
       {
-        path: 'statistic',
-        component: () => import('@/views/statistic/list'),
-        name: 'ProjectStatistic',
+        path: 'coefficient',
+        component: () => import('@/views/conefficient/list'),
+        name: 'Coefficient',
         meta: {
-          title: '数据汇总',
+          title: '取值系数',
+          roles: ['3'],
         },
       },
     ],
