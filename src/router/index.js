@@ -91,6 +91,24 @@ export const asyncRouterMap = [
           roles: ['3'],
         },
       },
+      {
+        path: 'statisticDirector',
+        component: () => import('@/views/statistic/director'),
+        name: 'StatisticDirector',
+        meta: {
+          title: '项目负责人统计',
+          roles: ['3'],
+        },
+      },
+      {
+        path: 'statisticDesign',
+        component: () => import('@/views/statistic/design'),
+        name: 'StatisticDesign',
+        meta: {
+          title: '设计统计',
+          roles: ['3'],
+        },
+      },
     ],
   },
   { path: '*', redirect: 'index', hidden: true },
