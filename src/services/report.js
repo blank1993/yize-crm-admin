@@ -13,8 +13,15 @@ const design = (params) => request({
   params,
 });
 
+const project = (params) => request({
+  url: '/admin/report/project',
+  method: 'get',
+  params,
+});
+
 
 export default {
   director,
   design,
+  project,
 };
