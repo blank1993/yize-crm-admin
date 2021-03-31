@@ -1,24 +1,31 @@
 <template>
   <div class="app-container">
     <el-row>
+      <el-date-picker
+        v-model="year"
+        :clearable="false"
+        type="year"
+        value-format="yyyy"
+        placeholder="选择年"
+      />
       计划完成时间：
       <el-button type="primary" style="margin-left: 15px;margin-bottom: 10px" @click="fetchData">查询</el-button>
     </el-row>
     <el-table
+      v-loading="loading"
       :height="'calc(100vh - 270px)'"
       :data="list"
       :border="true"
     >
       <el-table-column
         align="center"
-        label="项目编码"
+        label="客户代码"
         width="150"
         prop="projectcCode"
       />
       <el-table-column
         align="center"
-        label="项目名"
-        prop="projectName"
+        label="客户名称"
       />
       <el-table-column
         align="center"
@@ -336,7 +343,7 @@
         width="45px"
       >
         <template slot-scope="{row}">
-          {{ (row.total1+row.total2) ===0?'': (row.total3)/(row.total1+row.total2) }}
+          {{ (row.total1+row.total2) ===0?'': ( (row.total3)/(row.total1+row.total2)).toFixed(3) }}
         </template>
       </el-table-column>
 
@@ -351,7 +358,9 @@ export default {
   components: {},
   data() {
     return {
+      year: '2021',
       list: [],
+      loading: false,
     };
   },
   mounted() {
@@ -359,11 +368,12 @@ export default {
   },
   methods: {
     async fetchData() {
+      this.loading = true;
       const { data } = await ReportService.project({
-        year: 2021,
+        year: this.year,
       });
-      console.log(data);
       this.list = data;
+      this.loading = false;
     },
   },
 };

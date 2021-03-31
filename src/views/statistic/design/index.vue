@@ -20,58 +20,69 @@
       <el-table-column
         align="center"
         label=""
+        width="100"
       >给水设计
       </el-table-column>
       <el-table-column
         align="center"
         label="姓名"
         prop="design"
+        width="100"
       />
       <el-table-column
         align="center"
         label="项目积分"
         prop="point"
+        width="60"
       />
       <el-table-column
         align="center"
         label="新项目量"
         prop="newSum"
+        width="60"
       />
       <el-table-column
         align="center"
         label="增项目量"
         prop="addSum"
+        width="60"
       />
       <el-table-column
         align="center"
         label="修改项目"
         prop="fixSum"
+        width="60"
       />
 
       <el-table-column
         align="center"
         label="平均准确度"
         prop="avgPoint"
+        width="80"
       />
       <el-table-column
         align="center"
         label="设计总用时"
         prop="actulTimeSum"
+        width="100"
       />
       <el-table-column
         align="center"
         label="预计总用时"
         prop="planTimeSum"
+        width="100"
       />
       <el-table-column
         align="center"
         label="效率"
         prop="efficiency"
+        width="80"
       />
       <el-table-column
         align="center"
         label="产值"
         prop="degreeDifficultySumText"
+        width="80"
       />
       <el-table-column
         align="center"
@@ -89,58 +100,69 @@
       <el-table-column
         align="center"
         label=""
+        width="100"
       >排水设计
       </el-table-column>
       <el-table-column
         align="center"
         label="姓名"
         prop="design"
+        width="100"
       />
       <el-table-column
         align="center"
         label="项目积分"
         prop="point"
+        width="60"
       />
       <el-table-column
         align="center"
         label="新项目量"
         prop="newSum"
+        width="60"
       />
       <el-table-column
         align="center"
         label="增项目量"
         prop="addSum"
+        width="60"
       />
       <el-table-column
         align="center"
         label="修改项目"
         prop="fixSum"
+        width="60"
       />
 
       <el-table-column
         align="center"
         label="平均准确度"
         prop="avgPoint"
+        width="80"
       />
       <el-table-column
         align="center"
         label="设计总用时"
         prop="actulTimeSum"
+        width="100"
       />
       <el-table-column
         align="center"
         label="预计总用时"
         prop="planTimeSum"
+        width="100"
       />
       <el-table-column
         align="center"
         label="效率"
         prop="efficiency"
+        width="80"
       />
       <el-table-column
         align="center"
         label="产值"
         prop="degreeDifficultySumText"
+        width="80"
       />
       <el-table-column
         align="center"
@@ -159,58 +181,69 @@
       <el-table-column
         align="center"
         label=""
+        width="100"
       >电气设计
       </el-table-column>
       <el-table-column
         align="center"
         label="姓名"
         prop="design"
+        width="100"
       />
       <el-table-column
         align="center"
         label="项目积分"
         prop="point"
+        width="60"
       />
       <el-table-column
         align="center"
         label="新项目量"
         prop="newSum"
+        width="60"
       />
       <el-table-column
         align="center"
         label="增项目量"
         prop="addSum"
+        width="60"
       />
       <el-table-column
         align="center"
         label="修改项目"
         prop="fixSum"
+        width="60"
       />
 
       <el-table-column
         align="center"
         label="平均准确度"
         prop="avgPoint"
+        width="80"
       />
       <el-table-column
         align="center"
         label="设计总用时"
         prop="actulTimeSum"
+        width="100"
       />
       <el-table-column
         align="center"
         label="预计总用时"
         prop="planTimeSum"
+        width="100"
       />
       <el-table-column
         align="center"
         label="效率"
         prop="efficiency"
+        width="80"
       />
       <el-table-column
         align="center"
         label="产值"
         prop="degreeDifficultySumText"
+        width="80"
       />
       <el-table-column
         align="center"
@@ -229,58 +262,150 @@
       <el-table-column
         align="center"
         label=""
+        width="100"
       >水景设计
       </el-table-column>
       <el-table-column
         align="center"
         label="姓名"
         prop="design"
+        width="100"
       />
       <el-table-column
         align="center"
         label="项目积分"
         prop="point"
+        width="60"
       />
       <el-table-column
         align="center"
         label="新项目量"
         prop="newSum"
+        width="60"
       />
       <el-table-column
         align="center"
         label="增项目量"
         prop="addSum"
+        width="60"
       />
       <el-table-column
         align="center"
         label="修改项目"
         prop="fixSum"
+        width="60"
       />
 
       <el-table-column
         align="center"
         label="平均准确度"
         prop="avgPoint"
+        width="80"
       />
       <el-table-column
         align="center"
         label="设计总用时"
         prop="actulTimeSum"
+        width="100"
       />
       <el-table-column
         align="center"
         label="预计总用时"
         prop="planTimeSum"
+        width="100"
       />
       <el-table-column
         align="center"
         label="效率"
         prop="efficiency"
+        width="80"
       />
       <el-table-column
         align="center"
         label="产值"
         prop="degreeDifficultySumText"
+        width="80"
+      />
+      <el-table-column
+        align="center"
+        label="日报"
+        prop="journal"
+      />
+    </el-table>
+
+    <el-table
+      v-if="sum.length>0"
+      :data="sum"
+      :border="true"
+      :show-header="false"
+      :span-method="objectSpanMethod5"
+    >
+      <el-table-column
+        align="center"
+        label=""
+        width="100"
+      >汇总
+      </el-table-column>
+      <el-table-column
+        align="center"
+        label="姓名"
+        prop="design"
+        width="100"
+      />
+      <el-table-column
+        align="center"
+        label="项目积分"
+        prop="point"
+        width="60"
+      />
+      <el-table-column
+        align="center"
+        label="新项目量"
+        prop="newSum"
+        width="60"
+      />
+      <el-table-column
+        align="center"
+        label="增项目量"
+        prop="addSum"
+        width="60"
+      />
+      <el-table-column
+        align="center"
+        label="修改项目"
+        prop="fixSum"
+        width="60"
+      />
+
+      <el-table-column
+        align="center"
+        label="平均准确度"
+        prop="avgPoint"
+        width="80"
+      />
+      <el-table-column
+        align="center"
+        label="设计总用时"
+        prop="actulTimeSum"
+        width="100"
+      />
+      <el-table-column
+        align="center"
+        label="预计总用时"
+        prop="planTimeSum"
+        width="100"
+      />
+      <el-table-column
+        align="center"
+        label="效率"
+        prop="efficiency"
+        width="80"
+      />
+      <el-table-column
+        align="center"
+        label="产值"
+        prop="degreeDifficultySumText"
+        width="80"
       />
       <el-table-column
         align="center"
@@ -383,6 +508,7 @@ export default {
       paishui: [],
       electric: [],
       waterscape: [],
+      sum: [],
     };
   },
   mounted() {
@@ -415,6 +541,128 @@ export default {
       this.paishui = paishui;
       this.electric = electric;
       this.waterscape = waterscape;
+      const sumArr = [];
+      this.geishui.forEach((item) => {
+        let flag = false;
+        sumArr.forEach((sum) => {
+          if (sum.design === item.design) {
+            sum.point += item.point;
+            sum.avgPoint += item.avgPoint;
+            sum.actulTimeSum += item.actulTimeSum;
+            sum.planTimeSum += item.planTimeSum;
+            sum.efficiency += item.efficiency;
+            sum.degreeDifficultySumText += Number(item.degreeDifficultySumText);
+            sum.journal += item.journal;
+            flag = true;
+          }
+        });
+        if (flag === false) {
+          sumArr.push({
+            newSum: '/',
+            addSum: '/',
+            fixSum: '/',
+            design: item.design,
+            point: item.point,
+            avgPoint: item.avgPoint,
+            actulTimeSum: item.actulTimeSum,
+            planTimeSum: item.planTimeSum,
+            efficiency: item.efficiency,
+            degreeDifficultySumText: Number(item.degreeDifficultySumText),
+            journal: item.journal,
+          });
+        }
+      });
+      this.paishui.forEach((item) => {
+        let flag = false;
+        sumArr.forEach((sum) => {
+          if (sum.design === item.design) {
+            sum.point += item.point;
+            sum.avgPoint += item.avgPoint;
+            sum.actulTimeSum += item.actulTimeSum;
+            sum.planTimeSum += item.planTimeSum;
+            sum.efficiency += item.efficiency;
+            sum.degreeDifficultySumText += Number(item.degreeDifficultySumText);
+            sum.journal += item.journal;
+            flag = true;
+          }
+        });
+        if (flag === false) {
+          sumArr.push({
+            newSum: '/',
+            addSum: '/',
+            fixSum: '/',
+            design: item.design,
+            point: item.point,
+            avgPoint: item.avgPoint,
+            actulTimeSum: item.actulTimeSum,
+            planTimeSum: item.planTimeSum,
+            efficiency: item.efficiency,
+            degreeDifficultySumText: Number(item.degreeDifficultySumText),
+            journal: item.journal,
+          });
+        }
+      });
+      this.electric.forEach((item) => {
+        let flag = false;
+        sumArr.forEach((sum) => {
+          if (sum.design === item.design) {
+            sum.point += item.point;
+            sum.avgPoint += item.avgPoint;
+            sum.actulTimeSum += item.actulTimeSum;
+            sum.planTimeSum += item.planTimeSum;
+            sum.efficiency += item.efficiency;
+            sum.degreeDifficultySumText += Number(item.degreeDifficultySumText);
+            sum.journal += item.journal;
+            flag = true;
+          }
+        });
+        if (flag === false) {
+          sumArr.push({
+            newSum: '/',
+            addSum: '/',
+            fixSum: '/',
+            design: item.design,
+            point: item.point,
+            avgPoint: item.avgPoint,
+            actulTimeSum: item.actulTimeSum,
+            planTimeSum: item.planTimeSum,
+            efficiency: item.efficiency,
+            degreeDifficultySumText: Number(item.degreeDifficultySumText),
+            journal: item.journal,
+          });
+        }
+      });
+      this.waterscape.forEach((item) => {
+        let flag = false;
+        sumArr.forEach((sum) => {
+          if (sum.design === item.design) {
+            sum.point += item.point;
+            sum.avgPoint += item.avgPoint;
+            sum.actulTimeSum += item.actulTimeSum;
+            sum.planTimeSum += item.planTimeSum;
+            sum.efficiency += item.efficiency;
+            sum.degreeDifficultySumText += Number(item.degreeDifficultySumText);
+            sum.journal += item.journal;
+            flag = true;
+          }
+        });
+        if (flag === false) {
+          sumArr.push({
+            newSum: '/',
+            addSum: '/',
+            fixSum: '/',
+            design: item.design,
+            point: item.point,
+            avgPoint: item.avgPoint,
+            actulTimeSum: item.actulTimeSum,
+            planTimeSum: item.planTimeSum,
+            efficiency: item.efficiency,
+            degreeDifficultySumText: Number(item.degreeDifficultySumText),
+            journal: item.journal,
+          });
+        }
+      });
+      this.sum = sumArr;
     },
     // eslint-disable-next-line consistent-return
     objectSpanMethod1({
@@ -475,6 +723,23 @@ export default {
         if (rowIndex === 0) {
           return {
             rowspan: this.waterscape.length,
+            colspan: 1,
+          };
+        }
+        return {
+          rowspan: 0,
+          colspan: 0,
+        };
+      }
+    },
+    // eslint-disable-next-line consistent-return
+    objectSpanMethod5({
+      rowIndex, columnIndex,
+    }) {
+      if (columnIndex === 0) {
+        if (rowIndex === 0) {
+          return {
+            rowspan: this.sum.length,
             colspan: 1,
           };
         }
