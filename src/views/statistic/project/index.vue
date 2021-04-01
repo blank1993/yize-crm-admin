@@ -16,6 +16,7 @@
       :height="'calc(100vh - 270px)'"
       :data="list"
       :border="true"
+      @cell-dblclick="editRef"
     >
       <el-table-column
         align="center"
@@ -26,7 +27,11 @@
       <el-table-column
         align="center"
         label="客户名称"
-      />
+      >
+        <template slot-scope="{row}">
+          <div>{{ row.projectName }}</div>
+        </template>
+      </el-table-column>
       <el-table-column
         align="center"
         label="一月份"
@@ -367,6 +372,19 @@ export default {
     this.fetchData();
   },
   methods: {
+    editRef(row, column) {
+      if (column.label === '客户名称') {
+        this.$prompt('请输入客户名称', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          inputValue: row.projectName,
+        }).then(async ({ value }) => {
+          await ReportService.updateCodeName({ code: row.projectcCode, name: value });
+          this.fetchData();
+        }).catch(() => {
+        });
+      }
+    },
     async fetchData() {
       this.loading = true;
       const { data } = await ReportService.project({

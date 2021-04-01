@@ -19,9 +19,16 @@ const project = (params) => request({
   params,
 });
 
+const updateCodeName = (params) => request({
+  url: '/admin/report/updateCodeName',
+  method: 'post',
+  params,
+});
+
 
 export default {
   director,
   design,
   project,
+  updateCodeName,
 };
