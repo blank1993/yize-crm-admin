@@ -11,6 +11,7 @@
         value-format="yyyy-MM-dd"
       />
       <el-button type="primary" style="margin-left: 15px;margin-bottom: 10px" @click="fetchData">查询</el-button>
+      <el-button type="primary" @click="exportExcel">导出</el-button>
     </el-row>
     <el-table
       :data="geishui"
@@ -515,6 +516,25 @@ export default {
     this.fetchData();
   },
   methods: {
+    async exportExcel() {
+      const { data } = await ReportService.designExport({
+        startDate: this.dateRange[0],
+        endDate: this.dateRange[1],
+      });
+      this.download(data, '设计统计导出.xls');
+    },
+    download(data, fileName) {
+      if (!data) {
+        return;
+      }
+      const url = window.URL.createObjectURL(new Blob([data]));
+      const link = document.createElement('a');
+      link.style.display = 'none';
+      link.href = url;
+      link.setAttribute('download', fileName);
+      document.body.appendChild(link);
+      link.click();
+    },
     async fetchData() {
       if (this.dateRange === null) this.dateRange = [];
       const { data: geishui } = await ReportService.design({
@@ -553,6 +573,14 @@ export default {
             sum.efficiency += item.efficiency;
             sum.degreeDifficultySumText += Number(item.degreeDifficultySumText);
             sum.journal += item.journal;
+            sum.num += item.num;
+            sum.sumPoint += item.sumPoint;
+
+            sum.avgPoint.toFixed(3);
+            sum.actulTimeSum.toFixed(3);
+            sum.planTimeSum.toFixed(3);
+            sum.efficiency.toFixed(3);
+            sum.degreeDifficultySumText.toFixed(3);
             flag = true;
           }
         });
@@ -569,6 +597,8 @@ export default {
             efficiency: item.efficiency,
             degreeDifficultySumText: Number(item.degreeDifficultySumText),
             journal: item.journal,
+            num: item.num,
+            sumPoint: item.sumPoint,
           });
         }
       });
@@ -583,6 +613,13 @@ export default {
             sum.efficiency += item.efficiency;
             sum.degreeDifficultySumText += Number(item.degreeDifficultySumText);
             sum.journal += item.journal;
+            sum.num += item.num;
+            sum.sumPoint += item.sumPoint;
+            sum.avgPoint.toFixed(3);
+            sum.actulTimeSum.toFixed(3);
+            sum.planTimeSum.toFixed(3);
+            sum.efficiency.toFixed(3);
+            sum.degreeDifficultySumText.toFixed(3);
             flag = true;
           }
         });
@@ -599,6 +636,8 @@ export default {
             efficiency: item.efficiency,
             degreeDifficultySumText: Number(item.degreeDifficultySumText),
             journal: item.journal,
+            num: item.num,
+            sumPoint: item.sumPoint,
           });
         }
       });
@@ -613,6 +652,13 @@ export default {
             sum.efficiency += item.efficiency;
             sum.degreeDifficultySumText += Number(item.degreeDifficultySumText);
             sum.journal += item.journal;
+            sum.num += item.num;
+            sum.sumPoint += item.sumPoint;
+            sum.avgPoint.toFixed(3);
+            sum.actulTimeSum.toFixed(3);
+            sum.planTimeSum.toFixed(3);
+            sum.efficiency.toFixed(3);
+            sum.degreeDifficultySumText.toFixed(3);
             flag = true;
           }
         });
@@ -629,6 +675,8 @@ export default {
             efficiency: item.efficiency,
             degreeDifficultySumText: Number(item.degreeDifficultySumText),
             journal: item.journal,
+            num: item.num,
+            sumPoint: item.sumPoint,
           });
         }
       });
@@ -643,6 +691,13 @@ export default {
             sum.efficiency += item.efficiency;
             sum.degreeDifficultySumText += Number(item.degreeDifficultySumText);
             sum.journal += item.journal;
+            sum.num += item.num;
+            sum.sumPoint += item.sumPoint;
+            sum.avgPoint.toFixed(3);
+            sum.actulTimeSum.toFixed(3);
+            sum.planTimeSum.toFixed(3);
+            sum.efficiency.toFixed(3);
+            sum.degreeDifficultySumText.toFixed(3);
             flag = true;
           }
         });
@@ -659,8 +714,14 @@ export default {
             efficiency: item.efficiency,
             degreeDifficultySumText: Number(item.degreeDifficultySumText),
             journal: item.journal,
+            num: item.num,
+            sumPoint: item.sumPoint,
           });
         }
+      });
+      sumArr.forEach((sum) => {
+        sum.efficiency = (sum.planTimeSum / sum.actulTimeSum).toFixed(3);
+        sum.avgPoint = (sum.sumPoint / sum.num).toFixed(3);
       });
       this.sum = sumArr;
     },

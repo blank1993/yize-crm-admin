@@ -212,22 +212,38 @@
           </el-col>
           <el-col :span="6">
             <el-form-item label=" 给水设计 ">
-              <el-input v-model="form.data.geishuiDesign" :disabled="roles[0]==='4'" />
+              <el-autocomplete
+                v-model="form.data.geishuiDesign"
+                :disabled="roles[0]==='4'"
+                :fetch-suggestions="querySearch"
+              />
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label=" 排水设计 ">
-              <el-input v-model="form.data.paishuiDesign" :disabled="roles[0]==='4'" />
+              <el-autocomplete
+                v-model="form.data.paishuiDesign"
+                :disabled="roles[0]==='4'"
+                :fetch-suggestions="querySearch"
+              />
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label=" 电气设计 ">
-              <el-input v-model="form.data.electricDesign" :disabled="roles[0]==='4'" />
+              <el-autocomplete
+                v-model="form.data.electricDesign"
+                :disabled="roles[0]==='4'"
+                :fetch-suggestions="querySearch"
+              />
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label=" 水景设计 ">
-              <el-input v-model="form.data.waterscapeDesign" :disabled="roles[0]==='4'" />
+              <el-autocomplete
+                v-model="form.data.waterscapeDesign"
+                :disabled="roles[0]==='4'"
+                :fetch-suggestions="querySearch"
+              />
             </el-form-item>
           </el-col>
 
@@ -770,6 +786,10 @@ export default {
         await this.$parent.fetchData();
         this.form.visible = false;
       }
+    },
+    async querySearch(queryString, cb) {
+      const { data } = await ProjectService.query({ keyWord: queryString });
+      cb(data);
     },
   },
 };

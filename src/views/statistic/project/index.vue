@@ -10,11 +10,14 @@
       />
       计划完成时间：
       <el-button type="primary" style="margin-left: 15px;margin-bottom: 10px" @click="fetchData">查询</el-button>
+      <el-button type="primary" @click="exportExcel">导出</el-button>
     </el-row>
     <el-table
+      ref="table"
       v-loading="loading"
-      :height="'calc(100vh - 270px)'"
+      :height="'calc(100vh - 250px)'"
       :data="list"
+      show-summary
       :border="true"
       @cell-dblclick="editRef"
     >
@@ -392,6 +395,27 @@ export default {
       });
       this.list = data;
       this.loading = false;
+      this.$nextTick(() => {
+        this.$refs.table.doLayout();
+      });
+    },
+    async exportExcel() {
+      const { data } = await ReportService.projectExport({
+        year: this.year,
+      });
+      this.download(data, '项目统计导出.xls');
+    },
+    download(data, fileName) {
+      if (!data) {
+        return;
+      }
+      const url = window.URL.createObjectURL(new Blob([data]));
+      const link = document.createElement('a');
+      link.style.display = 'none';
+      link.href = url;
+      link.setAttribute('download', fileName);
+      document.body.appendChild(link);
+      link.click();
     },
   },
 };

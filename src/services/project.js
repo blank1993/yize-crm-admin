@@ -51,6 +51,12 @@ const exportExcel = (params) => request({
   responseType: 'blob',
 });
 
+const query = (params) => request({
+  url: '/admin/project/query',
+  method: 'get',
+  params,
+});
+
 
 export default {
   add,
@@ -61,4 +67,5 @@ export default {
   listByCode,
   importProject,
   exportExcel,
+  query,
 };

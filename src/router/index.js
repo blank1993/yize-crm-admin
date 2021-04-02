@@ -97,7 +97,6 @@ export const asyncRouterMap = [
         name: 'StatisticDirector',
         meta: {
           title: '项目负责人统计',
-          roles: ['3'],
         },
       },
       {
@@ -106,7 +105,6 @@ export const asyncRouterMap = [
         name: 'StatisticDesign',
         meta: {
           title: '设计统计',
-          roles: ['3'],
         },
       },
       {
@@ -115,7 +113,6 @@ export const asyncRouterMap = [
         name: 'StatisticProject',
         meta: {
           title: '项目统计',
-          roles: ['3'],
         },
       },
     ],

@@ -11,6 +11,7 @@
         value-format="yyyy-MM-dd"
       />
       <el-button type="primary" style="margin-left: 15px;margin-bottom: 10px" @click="fetchData">查询</el-button>
+      <el-button type="primary" @click="exportExcel">导出</el-button>
     </el-row>
     <el-table
       ref="singleTable"
@@ -146,6 +147,26 @@ export default {
     this.fetchData();
   },
   methods: {
+    async exportExcel() {
+      if (this.dateRange === null) this.dateRange = [];
+      const { data } = await ReportService.directorExport({
+        startDate: this.dateRange[0],
+        endDate: this.dateRange[1],
+      });
+      this.download(data, '负责人统计导出.xls');
+    },
+    download(data, fileName) {
+      if (!data) {
+        return;
+      }
+      const url = window.URL.createObjectURL(new Blob([data]));
+      const link = document.createElement('a');
+      link.style.display = 'none';
+      link.href = url;
+      link.setAttribute('download', fileName);
+      document.body.appendChild(link);
+      link.click();
+    },
     async fetchData() {
       this.tableData.loading = true;
       if (this.dateRange === null) this.dateRange = [];

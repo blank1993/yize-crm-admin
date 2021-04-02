@@ -25,10 +25,34 @@ const updateCodeName = (params) => request({
   params,
 });
 
+const projectExport = (params) => request({
+  url: '/admin/report/projectExport',
+  method: 'post',
+  params,
+  responseType: 'blob',
+});
+
+const directorExport = (params) => request({
+  url: '/admin/report/directorExport',
+  method: 'post',
+  params,
+  responseType: 'blob',
+});
+
+const designExport = (params) => request({
+  url: '/admin/report/designExport',
+  method: 'post',
+  params,
+  responseType: 'blob',
+});
+
 
 export default {
   director,
   design,
   project,
   updateCodeName,
+  projectExport,
+  directorExport,
+  designExport,
 };
