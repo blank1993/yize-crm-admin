@@ -25,12 +25,20 @@
       <el-col :span="2"><el-input v-model="form.修改项目负责人" size="small" /></el-col>
     </el-row>
     <el-row style="margin-bottom: 10px" :gutter="8">
-      <el-col :span="2">产值</el-col>
+      <el-col :span="2">水电产值</el-col>
       <el-col :span="2"><el-input v-model="form.产值给水" size="small" /></el-col>
       <el-col :span="2"><el-input v-model="form.产值排水" size="small" /></el-col>
       <el-col :span="2"><el-input v-model="form.产值电气" size="small" /></el-col>
       <el-col :span="2"><el-input v-model="form.产值水景" size="small" /></el-col>
       <el-col :span="2"><el-input v-model="form.产值负责人" size="small" /></el-col>
+    </el-row>
+    <el-row style="margin-bottom: 10px" :gutter="8">
+      <el-col :span="2">专项产值</el-col>
+      <el-col :span="2"><el-input v-model="form.专项产值给水" size="small" /></el-col>
+      <el-col :span="2"><el-input v-model="form.专项产值排水" size="small" /></el-col>
+      <el-col :span="2"><el-input v-model="form.专项产值电气" size="small" /></el-col>
+      <el-col :span="2"><el-input v-model="form.专项产值水景" size="small" /></el-col>
+      <el-col :span="2"><el-input v-model="form.专项产值负责人" size="small" /></el-col>
     </el-row>
   </div>
 </template>
@@ -59,6 +67,11 @@ export default {
         产值电气: 0,
         产值水景: 0,
         产值负责人: 0,
+        专项产值给水: 0,
+        专项产值排水: 0,
+        专项产值电气: 0,
+        专项产值水景: 0,
+        专项产值负责人: 0,
       },
     };
   },

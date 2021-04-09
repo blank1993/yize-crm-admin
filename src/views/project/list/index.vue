@@ -54,7 +54,11 @@
       </el-col>
     </el-row>
 
-    <div style="margin-bottom: 5px"><span style="font-weight: bold">项目批注：</span>
+    <div></div>
+    <div style="margin-bottom: 5px">
+      <span style="font-weight: bold">项目总数：</span>
+      {{ tableData.list.length }}
+      <span style="font-weight: bold;margin-left: 10px">项目批注：</span>
       <span v-if="nowSelect!=null">{{ nowSelect.comments }}</span>
     </div>
 

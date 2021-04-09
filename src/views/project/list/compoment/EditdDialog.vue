@@ -408,13 +408,13 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="本次水泵数量">
-              <el-input-number v-model="form.data.pumps" :disabled="roles[0]==='4'||roles[0]==='1'" size="small" :min="0" />
+              <el-input-number v-model="form.data.pumps" size="small" :min="0" />
             </el-form-item>
           </el-col>
 
           <el-col :span="12">
             <el-form-item label="水泵总数">
-              <el-input-number v-model="form.data.pumpsTotal" :disabled="roles[0]==='4'||roles[0]==='1'" size="small" :min="0" />
+              <el-input-number v-model="form.data.pumpsTotal" size="small" :min="0" />
             </el-form-item>
           </el-col>
         </template>

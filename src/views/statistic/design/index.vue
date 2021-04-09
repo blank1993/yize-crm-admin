@@ -14,96 +14,16 @@
       <el-button type="primary" @click="exportExcel">导出</el-button>
     </el-row>
     <el-table
-      :data="geishui"
+      :data="sumArr"
       :border="true"
-      :span-method="objectSpanMethod1"
+      :span-method="objectSpanMethod"
     >
       <el-table-column
         align="center"
         label=""
-        width="100"
-      >给水设计
-      </el-table-column>
-      <el-table-column
-        align="center"
-        label="姓名"
-        prop="design"
+        prop="type"
         width="100"
       />
-      <el-table-column
-        align="center"
-        label="项目积分"
-        prop="point"
-        width="60"
-      />
-      <el-table-column
-        align="center"
-        label="新项目量"
-        prop="newSum"
-        width="60"
-      />
-      <el-table-column
-        align="center"
-        label="增项目量"
-        prop="addSum"
-        width="60"
-      />
-      <el-table-column
-        align="center"
-        label="修改项目"
-        prop="fixSum"
-        width="60"
-      />
-
-      <el-table-column
-        align="center"
-        label="平均准确度"
-        prop="avgPoint"
-        width="80"
-      />
-      <el-table-column
-        align="center"
-        label="设计总用时"
-        prop="actulTimeSum"
-        width="100"
-      />
-      <el-table-column
-        align="center"
-        label="预计总用时"
-        prop="planTimeSum"
-        width="100"
-      />
-      <el-table-column
-        align="center"
-        label="效率"
-        prop="efficiency"
-        width="80"
-      />
-      <el-table-column
-        align="center"
-        label="产值"
-        prop="degreeDifficultySumText"
-        width="80"
-      />
-      <el-table-column
-        align="center"
-        label="日报"
-        prop="journal"
-      />
-    </el-table>
-    <el-table
-      v-if="paishui.length>0"
-      :data="paishui"
-      :border="true"
-      :show-header="false"
-      :span-method="objectSpanMethod2"
-    >
-      <el-table-column
-        align="center"
-        label=""
-        width="100"
-      >排水设计
-      </el-table-column>
       <el-table-column
         align="center"
         label="姓名"
@@ -172,248 +92,6 @@
       />
     </el-table>
 
-    <el-table
-      v-if="electric.length>0"
-      :data="electric"
-      :border="true"
-      :show-header="false"
-      :span-method="objectSpanMethod3"
-    >
-      <el-table-column
-        align="center"
-        label=""
-        width="100"
-      >电气设计
-      </el-table-column>
-      <el-table-column
-        align="center"
-        label="姓名"
-        prop="design"
-        width="100"
-      />
-      <el-table-column
-        align="center"
-        label="项目积分"
-        prop="point"
-        width="60"
-      />
-      <el-table-column
-        align="center"
-        label="新项目量"
-        prop="newSum"
-        width="60"
-      />
-      <el-table-column
-        align="center"
-        label="增项目量"
-        prop="addSum"
-        width="60"
-      />
-      <el-table-column
-        align="center"
-        label="修改项目"
-        prop="fixSum"
-        width="60"
-      />
-
-      <el-table-column
-        align="center"
-        label="平均准确度"
-        prop="avgPoint"
-        width="80"
-      />
-      <el-table-column
-        align="center"
-        label="设计总用时"
-        prop="actulTimeSum"
-        width="100"
-      />
-      <el-table-column
-        align="center"
-        label="预计总用时"
-        prop="planTimeSum"
-        width="100"
-      />
-      <el-table-column
-        align="center"
-        label="效率"
-        prop="efficiency"
-        width="80"
-      />
-      <el-table-column
-        align="center"
-        label="产值"
-        prop="degreeDifficultySumText"
-        width="80"
-      />
-      <el-table-column
-        align="center"
-        label="日报"
-        prop="journal"
-      />
-    </el-table>
-
-    <el-table
-      v-if="waterscape.length>0"
-      :data="waterscape"
-      :border="true"
-      :show-header="false"
-      :span-method="objectSpanMethod4"
-    >
-      <el-table-column
-        align="center"
-        label=""
-        width="100"
-      >水景设计
-      </el-table-column>
-      <el-table-column
-        align="center"
-        label="姓名"
-        prop="design"
-        width="100"
-      />
-      <el-table-column
-        align="center"
-        label="项目积分"
-        prop="point"
-        width="60"
-      />
-      <el-table-column
-        align="center"
-        label="新项目量"
-        prop="newSum"
-        width="60"
-      />
-      <el-table-column
-        align="center"
-        label="增项目量"
-        prop="addSum"
-        width="60"
-      />
-      <el-table-column
-        align="center"
-        label="修改项目"
-        prop="fixSum"
-        width="60"
-      />
-
-      <el-table-column
-        align="center"
-        label="平均准确度"
-        prop="avgPoint"
-        width="80"
-      />
-      <el-table-column
-        align="center"
-        label="设计总用时"
-        prop="actulTimeSum"
-        width="100"
-      />
-      <el-table-column
-        align="center"
-        label="预计总用时"
-        prop="planTimeSum"
-        width="100"
-      />
-      <el-table-column
-        align="center"
-        label="效率"
-        prop="efficiency"
-        width="80"
-      />
-      <el-table-column
-        align="center"
-        label="产值"
-        prop="degreeDifficultySumText"
-        width="80"
-      />
-      <el-table-column
-        align="center"
-        label="日报"
-        prop="journal"
-      />
-    </el-table>
-
-    <el-table
-      v-if="sum.length>0"
-      :data="sum"
-      :border="true"
-      :show-header="false"
-      :span-method="objectSpanMethod5"
-    >
-      <el-table-column
-        align="center"
-        label=""
-        width="100"
-      >汇总
-      </el-table-column>
-      <el-table-column
-        align="center"
-        label="姓名"
-        prop="design"
-        width="100"
-      />
-      <el-table-column
-        align="center"
-        label="项目积分"
-        prop="point"
-        width="60"
-      />
-      <el-table-column
-        align="center"
-        label="新项目量"
-        prop="newSum"
-        width="60"
-      />
-      <el-table-column
-        align="center"
-        label="增项目量"
-        prop="addSum"
-        width="60"
-      />
-      <el-table-column
-        align="center"
-        label="修改项目"
-        prop="fixSum"
-        width="60"
-      />
-
-      <el-table-column
-        align="center"
-        label="平均准确度"
-        prop="avgPoint"
-        width="80"
-      />
-      <el-table-column
-        align="center"
-        label="设计总用时"
-        prop="actulTimeSum"
-        width="100"
-      />
-      <el-table-column
-        align="center"
-        label="预计总用时"
-        prop="planTimeSum"
-        width="100"
-      />
-      <el-table-column
-        align="center"
-        label="效率"
-        prop="efficiency"
-        width="80"
-      />
-      <el-table-column
-        align="center"
-        label="产值"
-        prop="degreeDifficultySumText"
-        width="80"
-      />
-      <el-table-column
-        align="center"
-        label="日报"
-        prop="journal"
-      />
-    </el-table>
   </div>
 </template>
 
@@ -505,11 +183,8 @@ export default {
       this.$dayjs()
         .add(1, 'month')
         .toDate()],
-      geishui: [],
-      paishui: [],
-      electric: [],
-      waterscape: [],
-      sum: [],
+      sumArr: [],
+      orderIndexArr: [],
     };
   },
   mounted() {
@@ -537,277 +212,56 @@ export default {
     },
     async fetchData() {
       if (this.dateRange === null) this.dateRange = [];
-      const { data: geishui } = await ReportService.design({
+      const { data } = await ReportService.design({
         startDate: this.dateRange[0],
         endDate: this.dateRange[1],
-        type: 'geishui',
       });
-      const { data: paishui } = await ReportService.design({
-        startDate: this.dateRange[0],
-        endDate: this.dateRange[1],
-        type: 'paishui',
+      this.sumArr = data;
+      this.getOrderNumber();
+    },
+    getOrderNumber() {
+      const orderObj = {};
+      this.sumArr.forEach((item, index) => {
+        item.rowIndex = index;
+        if (orderObj[item.type]) {
+          orderObj[item.type].push(index);
+        } else {
+          orderObj[item.type] = [];
+          orderObj[item.type].push(index);
+        }
       });
-      const { data: electric } = await ReportService.design({
-        startDate: this.dateRange[0],
-        endDate: this.dateRange[1],
-        type: 'electric',
+      // 将数组长度大于1的值 存储到this.orderIndexArr（也就是需要合并的项）
+      Object.keys(orderObj).forEach((key) => {
+        if (orderObj[key].length > 1) {
+          this.orderIndexArr.push(orderObj[key]);
+        }
       });
-      const { data: waterscape } = await ReportService.design({
-        startDate: this.dateRange[0],
-        endDate: this.dateRange[1],
-        type: 'waterscape',
-      });
-      this.geishui = geishui;
-      this.paishui = paishui;
-      this.electric = electric;
-      this.waterscape = waterscape;
-      const sumArr = [];
-      this.geishui.forEach((item) => {
-        let flag = false;
-        sumArr.forEach((sum) => {
-          if (sum.design === item.design) {
-            sum.point += item.point;
-            sum.avgPoint += item.avgPoint;
-            sum.actulTimeSum += item.actulTimeSum;
-            sum.planTimeSum += item.planTimeSum;
-            sum.efficiency += item.efficiency;
-            sum.degreeDifficultySumText += Number(item.degreeDifficultySumText);
-            sum.journal += item.journal;
-            sum.num += item.num;
-            sum.sumPoint += item.sumPoint;
-
-            sum.avgPoint.toFixed(3);
-            sum.actulTimeSum.toFixed(3);
-            sum.planTimeSum.toFixed(3);
-            sum.efficiency.toFixed(3);
-            sum.degreeDifficultySumText.toFixed(3);
-            flag = true;
+    },
+    // eslint-disable-next-line consistent-return
+    objectSpanMethod({
+      rowIndex, columnIndex,
+    }) {
+      if (columnIndex === 0) {
+        for (let i = 0; i < this.orderIndexArr.length; i += 1) {
+          const element = this.orderIndexArr[i];
+          for (let j = 0; j < element.length; j += 1) {
+            const item = element[j];
+            if (rowIndex === item) {
+              if (j === 0) {
+                return {
+                  rowspan: element.length,
+                  colspan: 1,
+                };
+              }
+              if (j !== 0) {
+                return {
+                  rowspan: 0,
+                  colspan: 0,
+                };
+              }
+            }
           }
-        });
-        if (flag === false) {
-          sumArr.push({
-            newSum: '/',
-            addSum: '/',
-            fixSum: '/',
-            design: item.design,
-            point: item.point,
-            avgPoint: item.avgPoint,
-            actulTimeSum: item.actulTimeSum,
-            planTimeSum: item.planTimeSum,
-            efficiency: item.efficiency,
-            degreeDifficultySumText: Number(item.degreeDifficultySumText),
-            journal: item.journal,
-            num: item.num,
-            sumPoint: item.sumPoint,
-          });
         }
-      });
-      this.paishui.forEach((item) => {
-        let flag = false;
-        sumArr.forEach((sum) => {
-          if (sum.design === item.design) {
-            sum.point += item.point;
-            sum.avgPoint += item.avgPoint;
-            sum.actulTimeSum += item.actulTimeSum;
-            sum.planTimeSum += item.planTimeSum;
-            sum.efficiency += item.efficiency;
-            sum.degreeDifficultySumText += Number(item.degreeDifficultySumText);
-            sum.journal += item.journal;
-            sum.num += item.num;
-            sum.sumPoint += item.sumPoint;
-            sum.avgPoint.toFixed(3);
-            sum.actulTimeSum.toFixed(3);
-            sum.planTimeSum.toFixed(3);
-            sum.efficiency.toFixed(3);
-            sum.degreeDifficultySumText.toFixed(3);
-            flag = true;
-          }
-        });
-        if (flag === false) {
-          sumArr.push({
-            newSum: '/',
-            addSum: '/',
-            fixSum: '/',
-            design: item.design,
-            point: item.point,
-            avgPoint: item.avgPoint,
-            actulTimeSum: item.actulTimeSum,
-            planTimeSum: item.planTimeSum,
-            efficiency: item.efficiency,
-            degreeDifficultySumText: Number(item.degreeDifficultySumText),
-            journal: item.journal,
-            num: item.num,
-            sumPoint: item.sumPoint,
-          });
-        }
-      });
-      this.electric.forEach((item) => {
-        let flag = false;
-        sumArr.forEach((sum) => {
-          if (sum.design === item.design) {
-            sum.point += item.point;
-            sum.avgPoint += item.avgPoint;
-            sum.actulTimeSum += item.actulTimeSum;
-            sum.planTimeSum += item.planTimeSum;
-            sum.efficiency += item.efficiency;
-            sum.degreeDifficultySumText += Number(item.degreeDifficultySumText);
-            sum.journal += item.journal;
-            sum.num += item.num;
-            sum.sumPoint += item.sumPoint;
-            sum.avgPoint.toFixed(3);
-            sum.actulTimeSum.toFixed(3);
-            sum.planTimeSum.toFixed(3);
-            sum.efficiency.toFixed(3);
-            sum.degreeDifficultySumText.toFixed(3);
-            flag = true;
-          }
-        });
-        if (flag === false) {
-          sumArr.push({
-            newSum: '/',
-            addSum: '/',
-            fixSum: '/',
-            design: item.design,
-            point: item.point,
-            avgPoint: item.avgPoint,
-            actulTimeSum: item.actulTimeSum,
-            planTimeSum: item.planTimeSum,
-            efficiency: item.efficiency,
-            degreeDifficultySumText: Number(item.degreeDifficultySumText),
-            journal: item.journal,
-            num: item.num,
-            sumPoint: item.sumPoint,
-          });
-        }
-      });
-      this.waterscape.forEach((item) => {
-        let flag = false;
-        sumArr.forEach((sum) => {
-          if (sum.design === item.design) {
-            sum.point += item.point;
-            sum.avgPoint += item.avgPoint;
-            sum.actulTimeSum += item.actulTimeSum;
-            sum.planTimeSum += item.planTimeSum;
-            sum.efficiency += item.efficiency;
-            sum.degreeDifficultySumText += Number(item.degreeDifficultySumText);
-            sum.journal += item.journal;
-            sum.num += item.num;
-            sum.sumPoint += item.sumPoint;
-            sum.avgPoint.toFixed(3);
-            sum.actulTimeSum.toFixed(3);
-            sum.planTimeSum.toFixed(3);
-            sum.efficiency.toFixed(3);
-            sum.degreeDifficultySumText.toFixed(3);
-            flag = true;
-          }
-        });
-        if (flag === false) {
-          sumArr.push({
-            newSum: '/',
-            addSum: '/',
-            fixSum: '/',
-            design: item.design,
-            point: item.point,
-            avgPoint: item.avgPoint,
-            actulTimeSum: item.actulTimeSum,
-            planTimeSum: item.planTimeSum,
-            efficiency: item.efficiency,
-            degreeDifficultySumText: Number(item.degreeDifficultySumText),
-            journal: item.journal,
-            num: item.num,
-            sumPoint: item.sumPoint,
-          });
-        }
-      });
-      sumArr.forEach((sum) => {
-        sum.efficiency = (sum.planTimeSum / sum.actulTimeSum).toFixed(3);
-        sum.avgPoint = (sum.sumPoint / sum.num).toFixed(3);
-      });
-      this.sum = sumArr;
-    },
-    // eslint-disable-next-line consistent-return
-    objectSpanMethod1({
-      rowIndex, columnIndex,
-    }) {
-      if (columnIndex === 0) {
-        if (rowIndex === 0) {
-          return {
-            rowspan: this.geishui.length,
-            colspan: 1,
-          };
-        }
-        return {
-          rowspan: 0,
-          colspan: 0,
-        };
-      }
-    },
-    // eslint-disable-next-line consistent-return
-    objectSpanMethod2({
-      rowIndex, columnIndex,
-    }) {
-      if (columnIndex === 0) {
-        if (rowIndex === 0) {
-          return {
-            rowspan: this.paishui.length,
-            colspan: 1,
-          };
-        }
-        return {
-          rowspan: 0,
-          colspan: 0,
-        };
-      }
-    },
-    // eslint-disable-next-line consistent-return
-    objectSpanMethod3({
-      rowIndex, columnIndex,
-    }) {
-      if (columnIndex === 0) {
-        if (rowIndex === 0) {
-          return {
-            rowspan: this.electric.length,
-            colspan: 1,
-          };
-        }
-        return {
-          rowspan: 0,
-          colspan: 0,
-        };
-      }
-    },
-    // eslint-disable-next-line consistent-return
-    objectSpanMethod4({
-      rowIndex, columnIndex,
-    }) {
-      if (columnIndex === 0) {
-        if (rowIndex === 0) {
-          return {
-            rowspan: this.waterscape.length,
-            colspan: 1,
-          };
-        }
-        return {
-          rowspan: 0,
-          colspan: 0,
-        };
-      }
-    },
-    // eslint-disable-next-line consistent-return
-    objectSpanMethod5({
-      rowIndex, columnIndex,
-    }) {
-      if (columnIndex === 0) {
-        if (rowIndex === 0) {
-          return {
-            rowspan: this.sum.length,
-            colspan: 1,
-          };
-        }
-        return {
-          rowspan: 0,
-          colspan: 0,
-        };
       }
     },
   },
