@@ -532,9 +532,10 @@ export default {
       }
       if (row.column.property === 'waterscapeTime') {
         if (this.checkEmpty(this.tableData.list[row.rowIndex].waterscapeTime) === true
-          && (this.checkEmpty2(this.tableData.list[row.rowIndex].waterscapePoint) === false
-          || this.checkEmpty2(this.tableData.list[row.rowIndex].waterscapeActulTime) === false
-            || this.checkEmpty2(this.tableData.list[row.rowIndex].waterscapeDesign) === false)) { return { background: color }; }
+          && (this.checkEmpty(this.tableData.list[row.rowIndex].waterscapePoint) === false
+          || this.checkEmpty(this.tableData.list[row.rowIndex].waterscapeActulTime) === false
+            || this.checkEmpty(this.tableData.list[row.rowIndex].waterscapeDesign) === false
+            || this.checkEmpty(this.tableData.list[row.rowIndex].pumps) === false)) { return { background: color }; }
       }
       if (row.column.property === 'pumps') {
         if (this.checkEmpty(this.tableData.list[row.rowIndex].waterscapeDesign) === false
