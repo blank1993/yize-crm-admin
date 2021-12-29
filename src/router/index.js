@@ -115,6 +115,14 @@ export const asyncRouterMap = [
           title: '项目统计',
         },
       },
+      {
+        path: 'specialDesign',
+        component: () => import('@/views/specialDesign/list'),
+        name: 'SpecialDesign',
+        meta: {
+          title: '专项设计',
+        },
+      },
     ],
   },
   { path: '*', redirect: 'index', hidden: true },
