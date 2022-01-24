@@ -194,7 +194,7 @@
               style="width: 100%"
               placeholder="请选择"
             >
-              <el-option label="" value="" />
+              <el-option label="无" value="无" />
               <el-option label="扩初" value="扩初" />
               <el-option label="招标图" value="招标图" />
               <el-option label="施工前" value="施工前" />
@@ -213,7 +213,7 @@
               style="width: 100%"
               placeholder="请选择"
             >
-              <el-option label="" value="" />
+              <el-option label="无" value="无" />
               <el-option label="报告已出" value="报告已出" />
             </el-select>
           </el-form-item>
@@ -235,7 +235,35 @@
               <el-option label="已签订" value="已签订" />
               <el-option label="进行中" value="进行中" />
               <el-option label="无合同" value="无合同" />
+              <el-option label="免费" value="免费" />
             </el-select>
+          </el-form-item>
+        </el-col>
+
+        <el-col :span="8">
+          <el-form-item label="合同">
+            <el-button
+              v-if="form.data.contract"
+              size="small"
+              type="text"
+              @click="openInstruction(form.data.contract)"
+            >查看
+            </el-button>
+            <el-button
+              v-if="form.data.contract"
+              :disabled="roles[0]==='1'||roles[0]==='2'"
+              type="danger"
+              size="small"
+              @click="form.data.contract=''"
+            >删除
+            </el-button>
+            <el-button
+              v-else
+              :disabled="roles[0]==='1'||roles[0]==='2'"
+              type="primary"
+              size="small"
+              @click="handleUpload()"
+            >上传文件</el-button>
           </el-form-item>
         </el-col>
       </template>
@@ -250,6 +278,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import SpecialDesignService from '@/services/specialDesign';
+import FileService from '@/services/file';
 
 export default {
   name: 'EditDialog',
@@ -280,8 +309,8 @@ export default {
         value: '增',
       }],
       designList: [{
-        label: '',
-        value: '',
+        label: '无',
+        value: '无',
       }, {
         label: '设计中',
         value: '设计中',
@@ -329,12 +358,35 @@ export default {
             test: null,
             programme: null,
             acceptance: null,
+            contract: null,
           };
         }
       }
     },
   },
   methods: {
+    handleUpload() {
+      const inputObj = document.createElement('input');
+      inputObj.setAttribute('id', 'file');
+      inputObj.setAttribute('type', 'file');
+      inputObj.setAttribute('name', 'file');
+      inputObj.setAttribute('style', 'visibility:hidden');
+      inputObj.onchange = this.upload;
+      document.body.appendChild(inputObj);
+      inputObj.click();
+    },
+    async upload(e) {
+      const { data } = await FileService.upload(e.target.files[0]);
+      this.form.data.contract = data.url;
+      this.$notify.success({
+        title: '成功',
+        message: '上传成功',
+        duration: 2500,
+      });
+    },
+    openInstruction(url) {
+      window.location.href = process.env.VUE_APP_BASE_URL + url;
+    },
     async projectChange() {
       if (!this.form.data.id) {
         const { data } = await SpecialDesignService.listByCode({ projectCode: this.form.data.projectcCode });

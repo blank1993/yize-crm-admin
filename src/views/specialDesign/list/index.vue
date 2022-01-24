@@ -171,11 +171,22 @@
         align="center"
         label="合同进度"
         prop="progress"
+        width="95"
       >
         <template slot-scope="{row}">
           <div :style="{color:row.progress!=='已签订'?'red':''}">
             {{ row.progress }}
           </div>
+        </template>
+      </el-table-column>
+
+      <el-table-column
+        align="center"
+        label="合同"
+        width="50"
+      >
+        <template slot-scope="{row}">
+          <el-button v-if="row.contract" type="text" @click="openInstruction(row.contract)">打开</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -277,6 +288,9 @@ export default {
     this.fetchData();
   },
   methods: {
+    openInstruction(url) {
+      window.location.href = process.env.VUE_APP_BASE_URL + url;
+    },
     infoClick(index) {
       if (index === 0) window.location.reload();
       if (index === 1) this.handleEdit();
