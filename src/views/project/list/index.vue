@@ -29,7 +29,7 @@
       </el-col>
 
       <el-col :span="17" style="text-align: right">
-        计划完成时间：
+        接收日期：
         <el-date-picker
           v-model="dateRange"
           type="daterange"
@@ -258,6 +258,12 @@
         width="80"
       />
       <el-table-column
+        align="center"
+        label="设计阶段"
+        prop="designPhase"
+        width="80"
+      />
+      <el-table-column
         v-if="roles[0]==='3'||roles[0]==='4'"
         align="center"
         label="难度系数"
@@ -299,6 +305,13 @@
         align="center"
         label="合同编号"
         prop="contract"
+        width="80"
+      />
+      <el-table-column
+        v-if="roles[0]==='3'||roles[0]==='4'"
+        align="center"
+        label="设计费用（万）"
+        prop="designCost"
         width="80"
       />
     </el-table>

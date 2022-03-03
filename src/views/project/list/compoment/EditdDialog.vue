@@ -43,7 +43,7 @@
               <el-date-picker
                 v-model="form.data.recTime"
                 :editable="false"
-                :disabled="roles[0]==='2'||roles[0]==='4'"
+                disabled
                 value-format="yyyy-MM-dd"
                 type="date"
                 placeholder="选择日期"
@@ -304,7 +304,7 @@
           </el-col>
 
 
-          <el-col :span="16">
+          <el-col :span="8">
             <el-form-item label=" 项目类别 ">
               <el-select
                 v-model="form.data.projectCategory"
@@ -314,6 +314,24 @@
               >
                 <el-option
                   v-for="item in projectCategorys"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="8">
+            <el-form-item label=" 设计阶段 ">
+              <el-select
+                v-model="form.data.designPhase"
+                :disabled="roles[0]==='2'||roles[0]==='4'"
+                style="width: 100%"
+                placeholder="请选择"
+              >
+                <el-option
+                  v-for="item in designPhaseList"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value"
@@ -607,6 +625,28 @@ export default {
         label: '增',
         value: '增',
       }],
+      designPhaseList: [
+        {
+          label: '扩初',
+          value: '扩初',
+        },
+        {
+          label: '绿建',
+          value: '绿建',
+        },
+        {
+          label: '施前',
+          value: '施前',
+        },
+        {
+          label: '施后',
+          value: '施后',
+        },
+        {
+          label: '竣工',
+          value: '竣工',
+        },
+      ],
       projectCategorys: [
         {
           label: '商业',
@@ -693,6 +733,7 @@ export default {
             electricDesign: null,
             paishuiDesign: null,
             geishuiDesign: null,
+            designPhase: null,
           };
         }
       }
@@ -731,6 +772,7 @@ export default {
           }
           this.form.data.projectCategory = data.projectCategory;
           this.form.data.structure = data.structure;
+          this.form.data.designPhase = data.designPhase;
         }
       }
     },
