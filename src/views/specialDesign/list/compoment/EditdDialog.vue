@@ -71,7 +71,7 @@
         </el-col>
 
 
-        <el-col :span="24">
+        <el-col :span="10">
           <el-form-item label="计划完成日期">
             <el-date-picker
               v-model="form.data.planTime"
@@ -87,6 +87,19 @@
               <el-radio label="上午">上午</el-radio>
               <el-radio label="下午">下午</el-radio>
             </el-radio-group>
+          </el-form-item>
+        </el-col>
+
+        <el-col :span="14">
+          <el-form-item
+            label=" 设计用时 "
+          >
+            <el-input-number
+              v-model="form.data.designTime"
+              size="small"
+              :step="0.1"
+              :min="0"
+            />
           </el-form-item>
         </el-col>
 

@@ -772,7 +772,6 @@ export default {
           }
           this.form.data.projectCategory = data.projectCategory;
           this.form.data.structure = data.structure;
-          this.form.data.designPhase = data.designPhase;
         }
       }
     },

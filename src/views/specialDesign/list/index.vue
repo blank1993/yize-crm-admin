@@ -119,6 +119,12 @@
       </el-table-column>
       <el-table-column
         align="center"
+        label="设计用时"
+        prop="designTime"
+        width="55"
+      />
+      <el-table-column
+        align="center"
         label="方案设计"
         prop="design"
         width="95"

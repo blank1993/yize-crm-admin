@@ -27,8 +27,13 @@
           </el-button>
         </el-button-group>
       </el-col>
-
       <el-col :span="17" style="text-align: right">
+        <el-checkbox
+          v-model="tableData.params.order"
+          size="medium"
+          true-label="RecTime"
+          false-label="PlanTime"
+        ><span style="font-size: 16px;margin-right: 15px;color: black;">按接收日期排序</span></el-checkbox>
         接收日期：
         <el-date-picker
           v-model="dateRange"
@@ -388,6 +393,7 @@ export default {
       // 表格数据
       tableData: {
         params: {
+          order: 'PlanTime',
           keyWord: null,
           projectType: null,
         },
