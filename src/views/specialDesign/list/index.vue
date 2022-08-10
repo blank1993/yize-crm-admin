@@ -137,6 +137,12 @@
       />
       <el-table-column
         align="center"
+        label="建模渲染"
+        prop="rendering"
+        width="95"
+      />
+      <el-table-column
+        align="center"
         label="模型测试"
         prop="test"
         width="95"

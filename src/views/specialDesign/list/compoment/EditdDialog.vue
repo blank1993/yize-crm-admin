@@ -90,7 +90,7 @@
           </el-form-item>
         </el-col>
 
-        <el-col :span="14">
+        <el-col :span="6">
           <el-form-item
             label=" 设计用时 "
           >
@@ -99,6 +99,17 @@
               size="small"
               :step="0.1"
               :min="0"
+            />
+          </el-form-item>
+        </el-col>
+
+        <el-col :span="7">
+          <el-form-item
+            label=" 建模渲染 "
+          >
+            <el-input
+              v-model="form.data.rendering"
+              size="small"
             />
           </el-form-item>
         </el-col>
