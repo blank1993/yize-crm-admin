@@ -6,7 +6,6 @@
 
 <script>
 import LoginService from '@/services/login';
-import AES from '@/utils/AES';
 import { setToken } from '@/utils/auth';
 
 export default {
@@ -21,7 +20,7 @@ export default {
     const { remote } = window.electron;
     const { machineIdSync } = remote.require('node-machine-id');
     try {
-      const { data } = await LoginService.login(AES.encrypt(machineIdSync({ original: true })));
+      const { data } = await LoginService.login(machineIdSync({ original: true }));
       setToken(data);
       await this.$router.push('/index');
     } catch (err) {
